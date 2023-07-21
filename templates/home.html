@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="/static/style.css"> -->
+  <link rel="stylesheet" href="../static/style.css">
+  <!-- <script src="/static/script.js" defer></script> -->
+  <title>Etyviz</title>
+</head>
+
+<body>
+  <form action="/graph" method="GET" target="_blank">
+    <div class="text-input">
+      <label for="word">Word</label>
+      <input type="text" placeholder="" name="word" id="word" autocomplete="off">
+    </div>
+    <div class="text-input">
+      <label for="lang_code">Language code</label>
+      <input type="text" placeholder="" name="lang_code" id="lang_code" autocomplete="off">
+    </div>
+    <input id="generate" type="submit" value="Generate">
+  </form>
+
+</body>
+
+</html>

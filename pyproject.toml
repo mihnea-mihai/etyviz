@@ -1,0 +1,33 @@
+[project]
+name = "etyviz"
+version = "0.0.1"
+description = "We'll see"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Mihnea Mihai"}
+]
+keywords = ["etymology", "graph"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Framework :: Flask",
+    "License :: OSI Approved :: MIT License"
+]
+
+dependencies = [
+    "psycopg==3.1.9","psycopg-binary==3.1.9","typing_extensions==4.6.3"
+]
+
+[project.urls]
+Homepage = "https://etyviz.mihai.lu" # tbd
+
+[tool.pylint.format]
+max-line-length = "88"
+
+
+# [tool.pytest.ini_options]
+# pythonpath = [
+#   "src"
+# ]
