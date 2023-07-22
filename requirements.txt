@@ -1,7 +1,6 @@
 black==23.7.0
 blinker==1.6.2
 click==8.1.5
--e git+https://github.com/mihnea-mihai/etyviz.git@508bdf2269eb7ce02f45e757b6e75c7b301037c9#egg=etyviz
 Flask==2.3.2
 itsdangerous==2.1.2
 Jinja2==3.1.2
