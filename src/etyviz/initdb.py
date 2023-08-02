@@ -20,7 +20,7 @@ def insert_lines(batch_size: int = 10000):
                 offset = result[0]
             else:
                 offset = 0
-            print("Already processed row count:", offset)
+            print("Rows already processed:", offset)
 
             i = 0
             batch_i = 0
@@ -35,7 +35,7 @@ def insert_lines(batch_size: int = 10000):
                     if batch_i >= batch_size:
                         batch_i = 0
                         conn.commit()
-                        print("total rows:", i)
+                        print("Total processed rows:", i)
 
 
 if __name__ == "__main__":

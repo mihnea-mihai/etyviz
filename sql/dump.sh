@@ -1,10 +1,9 @@
 # ON SOURCE
 
-pg_dump etyviz -s > etyviz.sql
-pg_dump etyviz -a -t word -t link > etyviz.data
+pg_dump etyviz --format=c --no-unlogged-table-data > etyviz.dump
 
 # ON TARGET
 
-psql -f etyviz.sql etyviz
-psql -f etyviz.data etyviz
+pg_restore etyviz.dump --create --clean --if-exists --no-owner
 
+pg_restore etyviz.dump --create --clean --if-exists --no-owner --schema-only
