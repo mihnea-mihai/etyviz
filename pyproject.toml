@@ -3,7 +3,7 @@ name = "etyviz"
 version = "0.0.1"
 description = "We'll see"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [
     {name = "Mihnea Mihai"}

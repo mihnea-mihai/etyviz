@@ -1,12 +1,11 @@
 """Database wrappers."""
-from typing import LiteralString, Union, Optional, Sequence, Mapping, Any
+from typing import Union, Optional, Sequence, Mapping, Any
 
 import psycopg
-from psycopg import sql
 
 
 def select(
-    query: Union[LiteralString, bytes, sql.SQL, sql.Composed],
+    query,
     params: Optional[Union[Sequence[Any], Mapping[str, Any]]] = None,
 ) -> list[tuple]:
     """Return all rows of a `SELECT` query.
