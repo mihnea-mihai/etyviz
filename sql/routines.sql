@@ -128,7 +128,7 @@ WITH RECURSIVE ascendants AS (
     SELECT w1, type, w2 FROM link
     WHERE w1 = (
         SELECT id FROM word
-        WHERE word = 'Bogdan' AND lang_code = 'ro'
+        WHERE word = qword AND lang_code = qlang_code
     )
     UNION
         SELECT link.w1, link.type, link.w2
