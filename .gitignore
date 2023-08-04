@@ -163,5 +163,5 @@ db.secret
 input/
 test.py
 sql/dump/
-graphs/
+graphs/*.pdf
 .vscode/
