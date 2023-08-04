@@ -27,4 +27,4 @@ def hello():
 
 
 if __name__ == "__main__":
-    app.run(ssl_context="adhoc", port=443, host="0.0.0.0")
+    app.run(port=80, host="0.0.0.0")
