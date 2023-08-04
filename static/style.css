@@ -52,6 +52,8 @@ input[type=submit]:hover {
 }
 
 #banner {
-    max-width: 100%;
+    width: 100%;
     min-width: 30%;
 }
+
+
