@@ -50,3 +50,8 @@ input[type=submit]:hover {
     opacity: 69%;
     cursor: pointer;
 }
+
+#banner {
+    max-width: 100%;
+    min-width: 30%;
+}
