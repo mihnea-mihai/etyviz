@@ -51,9 +51,12 @@ input[type=submit]:hover {
     cursor: pointer;
 }
 
+header {
+    text-align: center;
+}
+
 #banner {
-    width: 100%;
-    min-width: 30%;
+    width: 10rem;
 }
 
 

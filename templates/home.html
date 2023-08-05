@@ -10,19 +10,24 @@
 </head>
 
 <body>
-  <img id="banner" src="../static/assets/img/social-banner.png">
-  <form action="/graph" method="GET" target="_blank">
-    <div class="text-input">
-      <label for="word">Word</label>
-      <input type="text" placeholder="" name="word" id="word" autocomplete="off">
-    </div>
-    <div class="text-input">
-      <label for="lang_code">Language code</label>
-      <input type="text" placeholder="" name="lang_code" id="lang_code" autocomplete="off">
-    </div>
-    <input id="generate" type="submit" value="Generate">
-  </form>
-
+  <header>
+    <img id="banner" src="../static/assets/img/Etyviz.drawio.svg">
+  </header>
+  <main>
+    <form action="/graph" method="GET" target="_blank">
+      <div class="text-input">
+        <label for="word">Word</label>
+        <input type="text" placeholder="" name="word" id="word"
+        autocomplete="off" autocorrect="off" autocapitalize="none">
+      </div>
+      <div class="text-input">
+        <label for="lang_code">Language code</label>
+        <input type="text" placeholder="" name="lang_code" id="lang_code"
+        autocomplete="off" autocorrect="off" autocapitalize="none">
+      </div>
+      <input id="generate" type="submit" value="Generate">
+    </form>
+  </main>
 </body>
 
 </html>
