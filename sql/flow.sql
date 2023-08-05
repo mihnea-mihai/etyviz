@@ -15,4 +15,6 @@ CALL populate_link();
 CREATE INDEX ON link (w1);
 CREATE INDEX ON link (w2);
 
+CALL populate_link_type();
+
 ANALYZE;

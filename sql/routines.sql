@@ -117,6 +117,30 @@ CREATE PROCEDURE populate_link() LANGUAGE 'sql' AS $BODY$
             AND w2.word = raw_link.w2_word;
 $BODY$;
 
+CREATE PROCEDURE populate_link_type() LANGUAGE 'sql' AS $BODY$
+    INSERT INTO link_type (type, num)
+    SELECT type, count(*)
+    FROM link
+    GROUP BY type
+    ORDER BY count(*) DESC;
+
+    UPDATE link_type
+        SET arrow_color = '#FCB131'
+        WHERE type = ANY(ARRAY['af', 'suffix', 'affix', 'prefix', 'compound', 'com', 'suf', 'confix']);
+    
+    UPDATE link_type
+        SET arrow_color = '#00A651'
+        WHERE type = ANY(ARRAY['inh', 'root', 'inh+']);   
+    
+    UPDATE link_type
+        SET arrow_color = '#EE334E'
+        WHERE type = ANY(ARRAY['bor', 'bor+']);
+    
+    UPDATE link_type
+        SET arrow_color = '#0081C8'
+        WHERE type = ANY(ARRAY['der', 'uder']);
+$BODY$;
+
 CREATE FUNCTION get_ascendant_graph(
 	qword text,
 	qlang_code text)
@@ -140,14 +164,16 @@ tree AS (
     SELECT
         w1.dot AS w1_dot,
         w1.id AS w1_id,
-        ascendants.type AS link_type,
+        link_type.arrow_color AS color,
         w2.dot AS w2_dot,
         w2.id AS w2_id
     FROM ascendants
     JOIN word w1 ON w1.id = ascendants.w1
     JOIN word w2 ON w2.id = ascendants.w2
+    JOIN link_type ON link_type.type = ascendants.type
     LIMIT 50)
 SELECT 
-    'digraph {margin=0 bgcolor="#0F0F0F" node [shape=none fontcolor="#F5F5F5"] edge [fontcolor="#F5F5F5" color="#F5F5F5"] ' || string_agg(format('%s %s %s->%s[label="%s"]', w1_dot, w2_dot, w2_id, w1_id, link_type), ' ') || '}' AS link_dot
+    'digraph {margin=0 bgcolor="#0F0F0F" node [shape=none fontcolor="#F5F5F5"] edge [fontcolor="#F5F5F5" color="#F5F5F5"] ' || string_agg(format('%s %s %s->%s[color="%s"]', w1_dot, w2_dot, w2_id, w1_id, color), ' ') || '}' AS link_dot
 FROM tree;
 $BODY$;
+

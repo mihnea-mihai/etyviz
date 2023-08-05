@@ -42,3 +42,9 @@ CREATE TABLE link (
     type text,
     w2 integer REFERENCES word
 );
+
+CREATE TABLE link_type (
+    type text NOT NULL,
+    num int NOT NULL,
+    arrow_color text
+);
