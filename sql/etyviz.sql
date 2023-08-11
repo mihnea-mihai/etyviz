@@ -243,7 +243,7 @@ CREATE FUNCTION public.word_dot(word text, lang_code text, etym_no text, pos tex
         lang_code || ' <I>(' || pos || ')</I>' ||
         '<BR/><FONT POINT-SIZE="25"><B>' || word || '</B></FONT>' ||
         '<SUP>' || COALESCE(etym_no, ' ') || '</SUP>' ||
-        '<BR/><I>' || wrap_text(COALESCE(gloss, ' '), 30, '<BR/>') || '</I>' ||
+        '<BR/><I>' || wrap_text(COALESCE(gloss, ' '), 30, '<BR/>'::text) || '</I>' ||
         '>]'
 $$;
 
