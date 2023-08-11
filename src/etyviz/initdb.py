@@ -25,7 +25,7 @@ def insert_lines(batch_size: int = 10000):
             i = 0
             batch_i = 0
 
-            with open("input/wiktextract.json", encoding="utf-8") as file:
+            with open("sql/raw-wiktextract-data.json", encoding="utf-8") as file:
                 for line in file:
                     i += 1
                     if i <= offset:

@@ -165,3 +165,7 @@ test.py
 sql/dump/
 graphs/*.pdf
 .vscode/
+
+docs/
+raw-wiktextract-data.json
+sql/etyviz.dump
