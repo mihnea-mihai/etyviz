@@ -167,7 +167,7 @@ docs/
 graphs/
 !graphs/.gitkeep
 
-storage/
+storage/*
 !storage/.gitkeep
 
 schemaspy/
