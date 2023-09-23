@@ -1,0 +1,17 @@
+COPY pre.template(template_name, lang_code_idx, word_idx_arr) FROM stdin;
+inh	2	{3}
+root	2	{3}
+inh+	2	{3}
+bor	2	{3}
+bor+	2	{3}
+der	2	{3}
+uder	2	{3}
+af	1	{2,3,4,5,6,7,8,9}
+com	1	{2,3,4,5,6,7,8,9}
+affix	1	{2,3,4,5,6,7,8,9}
+suffix	1	{2,3,4,5,6,7,8,9}
+prefix	1	{2,3,4,5,6,7,8,9}
+suf	1	{2,3,4,5,6,7,8,9}
+confix	1	{2,3,4,5,6,7,8,9}
+compound	1	{2,3,4,5,6,7,8,9}
+\.

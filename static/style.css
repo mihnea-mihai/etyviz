@@ -3,7 +3,10 @@
     --text-color: #F5F5F5;
     --bg-color: #0F0F0F;
     --sec-bg-color: #1A1A1A;
-    --accent-color: #8B1A1A;
+    --accent-color: #0081C8;
+    --success-color: #00A651;
+    --error-color: #EE334E;
+    --warning-color: #FCB131;
 }
 
 html {
@@ -46,7 +49,7 @@ input[type=submit] {
     padding: 2vh 2vw;
 }
 input[type=submit]:hover {
-    background-color: var(--accent-color);
+    /* background-color: var(--accent-color); */
     opacity: 69%;
     cursor: pointer;
 }
@@ -59,4 +62,32 @@ header {
     width: 10rem;
 }
 
+:focus-visible {
+    outline: unset;
+}
+
+input.valid {
+    border: var(--success-color) solid 3px;
+    color: var(--success-color);
+}
+
+input.invalid {
+    border: var(--error-color) solid 3px;
+    color: var(--error-color);
+}
+
+input.pending {
+    border: var(--warning-color) solid 3px;
+    color: var(--warning-color);
+}
+
+.dropdown > span {
+    display: block;
+}
+.dropdown > span:hover {
+    /* opacity: 69%; */
+    cursor: pointer;
+    color: var(--accent-color);
+    background-color: var(--sec-bg-color);
+}
 

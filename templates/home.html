@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="../static/style.css">
   <link rel="icon" type="image/x-icon" href="../static/assets/img/favicon.png">
   <title>Etyviz</title>
+  <script src="/static/validate.js" defer></script>
+  <script src="/static/lang_input.js" defer></script>
+  <script src="/static/word_input.js" defer></script>
 </head>
 
 <body>
@@ -15,17 +18,21 @@
   </header>
   <main>
     <form action="/graph" method="GET" target="_blank">
-      <div class="text-input">
+      <div class="text-input word">
         <label for="word">Word</label>
         <input type="text" placeholder="" name="word" id="word"
-        autocomplete="off" autocorrect="off" autocapitalize="none">
+        autocomplete="off" autocorrect="off" autocapitalize="none"
+        class="pending">
+        <div class="dropdown"></div>
       </div>
-      <div class="text-input">
-        <label for="lang_code">Language code</label>
-        <input type="text" placeholder="" name="lang_code" id="lang_code"
-        autocomplete="off" autocorrect="off" autocapitalize="none">
+      <div class="text-input lang">
+        <label for="lang">Language</label>
+        <input type="text" placeholder="" name="lang" id="lang"
+        autocomplete="off" autocorrect="off" autocapitalize="none"
+        class="pending">
+        <div class="dropdown"></div>
       </div>
-      <input id="generate" type="submit" value="Generate">
+      <input id="generate" type="submit" value="Generate" class="">
     </form>
   </main>
 </body>
