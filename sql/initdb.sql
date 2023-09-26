@@ -18,27 +18,63 @@ BEGIN
         ALTER TABLE core.graph DROP CONSTRAINT IF EXISTS graph_child_id_fkey;
         ALTER TABLE core.graph DROP CONSTRAINT IF EXISTS graph_parent_id_fkey;
 
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<fill_nodes>>
     DECLARE
         start_time timestamp := clock_timestamp();
-        node_count integer;
+        inserted_rows integer;
     BEGIN
-        RAISE NOTICE 'FILLING CORE.NODE';
+        RAISE NOTICE 'FILLING MAIN CORE.NODE';
 
         INSERT INTO core.node (node_id, word, lang_code, etym_no, pos, translit, gloss)
             SELECT entry_id, word, lang_code, etym_no, pos, translit, gloss
             FROM pre.entry
             JOIN core.lang USING (lang_code);
+        GET DIAGNOSTICS inserted_rows := ROW_COUNT;
+        
+
+        RAISE NOTICE E'\tInserted % rows into core.node',
+            to_char(inserted_rows, '999,999,999');
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %',
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
+<<fill_nodes_redirect>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        inserted_rows integer;
+    BEGIN
+        RAISE NOTICE 'FILLING CORE.NODE WITH REDIRECTS';
+
+        INSERT INTO core.node (node_id, word, lang_code)
+            WITH redirect AS (
+                SELECT
+                    entry_id,
+                    regexp_split_to_array(title, '[:/]') AS spl
+                FROM pre.entry
+                WHERE title LIKE 'Reconstruction:%' AND redirect LIKE 'Reconstruction:%'
+            )
+            SELECT entry_id, spl[3], lang_code
+            FROM redirect
+            JOIN core.lang ON lang_name = spl[2];
+
+
+
+        GET DIAGNOSTICS inserted_rows := ROW_COUNT;
+        RAISE NOTICE E'\tInserted % new rows into core.node (redirect)',
+            to_char(inserted_rows, '999,999,999');
+
+
 
         CREATE INDEX ON core.node (lang_code, word);
-
-        node_count := (SELECT count(*) FROM core.node);
-        RAISE NOTICE E'\tcore.node now has % entries', node_count;
-
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<fill_edge>>
@@ -59,13 +95,50 @@ BEGIN
             JOIN core.lang ON parent.lang_code = lang.lang_code
         ON CONFLICT DO NOTHING;
 
-        CREATE INDEX ON core.edge (parent_id);
     
         edge_count := (SELECT count(*) FROM core.edge);
         RAISE NOTICE E'\tcore.edge now has % entries', edge_count;
-        ANALYZE;
+        VACUUM ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
 
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+<<fill_edges_redirect>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        inserted_rows integer;
+    BEGIN
+        RAISE NOTICE 'FILLING CORE.EDGE WITH REDIRECTS';
+
+        INSERT INTO core.edge (child_id, edge_type, parent_id)
+            WITH redirect AS (
+                SELECT
+                    entry_id AS child_id,
+                    (regexp_match(redirect,'Reconstruction:(.+)/(.+)$'))[2] AS parent_word,
+                    (regexp_match(redirect,'Reconstruction:(.+)/(.+)$'))[1] AS parent_lang_name
+                FROM pre.entry
+                WHERE title ^@ 'Reconstruction:' AND redirect ^@ 'Reconstruction:'
+            )
+            SELECT
+                child_id,
+                'redirect',
+                parent.node_id
+            FROM redirect
+            JOIN core.node AS child ON child_id = child.node_id
+            JOIN core.lang ON lang.lang_name = redirect.parent_lang_name
+            JOIN core.node AS parent
+                ON parent.word = redirect.parent_word
+                AND parent.lang_code = lang.lang_code;
+
+        GET DIAGNOSTICS inserted_rows := ROW_COUNT;
+        RAISE NOTICE E'\tInserted % new rows into core.node (redirect)',
+            to_char(inserted_rows, '999,999,999');
+
+        CREATE INDEX ON core.edge (parent_id);
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<purge_unlinked_nodes>>
@@ -97,8 +170,9 @@ BEGIN
         node_count := (SELECT count(*) FROM core.node);
         RAISE NOTICE E'\tcore.node now has % entries', node_count;
         ANALYZE;
-
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<purge_empty_languages>>
@@ -117,9 +191,10 @@ BEGIN
     
         lang_count := (SELECT count(*) FROM core.lang);
         RAISE NOTICE E'\tcore.lang now has % entries', lang_count;
-        ANALYZE;
-
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        VACUUM ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<init_graph>>
@@ -139,9 +214,10 @@ BEGIN
 
         graph_count := (SELECT count(*) FROM core.graph);
         RAISE NOTICE E'\tcore.graph now has % entries', graph_count;
-        ANALYZE;
-
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        VACUUM ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<increase_graph>>
@@ -172,20 +248,24 @@ BEGIN
                 DO UPDATE SET rank = excluded.rank;
 
             GET DIAGNOSTICS affected_rows := ROW_COUNT;
-            RAISE NOTICE E'\t\tAffected rows: %', affected_rows;
-            IF affected_rows < 1 OR rnk > 15 THEN
+            RAISE NOTICE E'\t\tAffected rows: %',
+                to_char(affected_rows, '999,999,999');
+            IF affected_rows < 1 OR rnk > 10 THEN
                 EXIT;
             END IF;
             rnk := rnk + 1;
-            ANALYZE;
-            RAISE NOTICE E'\t\tTime elapsed: %', clock_timestamp() - section_start_time;
+            VACUUM ANALYZE;
+            COMMIT;
+            RAISE NOTICE E'\t\tTime elapsed: %', 
+                to_char(clock_timestamp() - section_start_time, 'MI:SS');
         END LOOP;
 
         graph_count := (SELECT count(*) FROM core.graph);
         RAISE NOTICE E'\tcore.graph now has % entries', graph_count;
 
-
-        RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
 <<purge_edges_transitive_reduction>>
@@ -207,7 +287,7 @@ BEGIN
         edge_count := (SELECT count(*) FROM core.edge);
         RAISE NOTICE E'\tcore.edge now has % entries', edge_count;
         ANALYZE;
-
+        COMMIT;
         RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
     END;
 
@@ -224,7 +304,7 @@ BEGIN
                 node_id, word, lang.lang_name, etym_no, pos, translit, gloss)
             FROM core.lang
             WHERE core.node.lang_code = core.lang.lang_code;
-
+        COMMIT;
         RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
     END;
 
@@ -239,7 +319,7 @@ BEGIN
                 parent_id, child_id, arrow_color)
             FROM pre.link_type
             WHERE edge_type = link_type;
-
+        COMMIT;
         RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
     END;
 
@@ -263,7 +343,7 @@ BEGIN
         ALTER TABLE core.node SET LOGGED;
         ALTER TABLE core.edge SET LOGGED;
         ALTER TABLE core.graph SET LOGGED;
-
+        COMMIT;
         RAISE NOTICE E'\tExecution time: %', clock_timestamp() - start_time;
     END;
 

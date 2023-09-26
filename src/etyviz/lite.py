@@ -19,6 +19,7 @@ lemmas = [
     "wæter",
     "watar",
     "watōr",
+    "wódr̥",
     "-wed",
     "ǵʰer-",
     "mus",
@@ -30,11 +31,16 @@ lemmas = [
     "lupus",
     "lukʷos",
     "wĺ̥kʷos",
+    "fire",
+    "fyr",
+    "-wr̥",
+    "péh₂wr̥",
 ]
-# Reconstruction:Proto-Indo-European/wódr̥
+
+titles = ["Reconstruction:Proto-Indo-European/wédōr"]
 
 
-def insert_lines(lite: bool = False, batch_size: int = 10000):
+def insert_lines():
     start = datetime.datetime.now()
     print("Import started at: ", start)
     i = 0
@@ -46,7 +52,8 @@ def insert_lines(lite: bool = False, batch_size: int = 10000):
                 i += 1
                 jdoc = json.loads(line)
                 word = jdoc.get("word")
-                if word in lemmas:
+                title = jdoc.get("title")
+                if word in lemmas or title in titles:
                     out.write(json.dumps(jdoc) + "\n")
                     print(word)
                 if i % 100000 == 0:

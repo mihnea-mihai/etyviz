@@ -6,6 +6,8 @@ CREATE TABLE core.lang (
     node_count  smallint
 );
 
+CREATE INDEX ON core.lang (lang_name);
+
 CREATE TABLE core.node (
     node_id     integer     PRIMARY KEY,
     word        text        NOT NULL,

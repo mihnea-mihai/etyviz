@@ -162,9 +162,7 @@ cython_debug/
 test.py
 .vscode/
 
-docs/
-
-graphs/
+graphs/*
 !graphs/.gitkeep
 
 storage/*

@@ -59,7 +59,9 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
 
         CREATE OR REPLACE FUNCTION pre.dot_escape(str text)
             RETURNS text LANGUAGE SQL IMMUTABLE AS $$
-                SELECT replace(replace(str, '"', '""'), '&', '');
+                SELECT replace(replace(
+                    replace(replace(str, '"', '""'), '&', ''),
+                    '>', ''), '<', '');
         $$;
 
         CREATE OR REPLACE FUNCTION pre.word_dot (
@@ -127,7 +129,14 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
             lang_code AS parent_lang_code
         FROM pre.expanded_template
         JOIN pre.template USING (template_name)
-        WHERE key = ANY(template.word_idx_arr);
+        WHERE key = ANY(template.word_idx_arr)
+        UNION
+        SELECT
+            entry_id AS child_id,
+            'form_of' AS edge_type,
+            form_of AS parent_word,
+            lang_code AS parent_lang_code
+        FROM pre.entry;
 
     CREATE UNLOGGED TABLE pre.lang (
         lang_code   text    PRIMARY KEY,
