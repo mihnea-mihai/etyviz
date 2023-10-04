@@ -1,4 +1,5 @@
 let word_input = document.getElementById('word')
+lang_input = document.getElementById('lang')
 
 function clickDropdown() {
     inp = this.parentElement.parentElement
@@ -13,7 +14,8 @@ word_input.addEventListener('keyup', function () {
     clearTimeout(word_suggest_timeout);
     word_suggest_timeout = setTimeout(function () {
         let part_word = word_input.value
-        fetch('/api/suggest/word?part_word=' + part_word)
+        let lang_name = lang_input.value
+        fetch(`/api/suggest/word?lang_name=${lang_name}&part_word=${part_word}`)
             .then(response => {
                 return response.json();
             }).then(words => {

@@ -75,8 +75,8 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
             concat(node_id, ' [label=<', lang, ' <I>(', pos, ')</I>',
                 '<BR/><FONT POINT-SIZE="25"><B>', word, '</B></FONT>',
                 '<SUP>', COALESCE(etym_no::text, ' '), '</SUP>', '<BR/><I>',
-                pre.dot_escape(pre.wrap_text(COALESCE(gloss, ' '), 30, '<BR/>')
-                ), '</I>', '>]');
+                pre.wrap_text(pre.dot_escape(COALESCE(gloss, ' ')), 30, '<BR/>'),
+                '</I>', '>]');
         $$;
 
 -- Create edges

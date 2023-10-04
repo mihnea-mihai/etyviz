@@ -17,6 +17,7 @@ html {
 body {
     margin: auto;
     max-width: 769px;
+    font-family: sans-serif;
 }
 
 form {
@@ -31,7 +32,7 @@ form {
 }
 
 .text-input {
-    padding: 3vh 0;
+    padding: 2vh 0;
 }
 
 input {
@@ -91,3 +92,15 @@ input.pending {
     background-color: var(--sec-bg-color);
 }
 
+footer {
+    font-size: small;
+    text-align: center;
+}
+
+input.valid + div.dropdown {
+    display: none;
+}
+
+input.invalid + div.dropdown {
+    display: unset;
+}

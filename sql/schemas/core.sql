@@ -3,7 +3,7 @@ CREATE SCHEMA core;
 CREATE TABLE core.lang (
     lang_code   text        PRIMARY KEY,
     lang_name   text        NOT NULL,
-    node_count  smallint
+    node_count  integer
 );
 
 CREATE INDEX ON core.lang (lang_name);

@@ -8,6 +8,8 @@ BEGIN
     BEGIN
         RAISE NOTICE 'DISABLING TABLE CONSTRAINTS';
 
+        TRUNCATE core.node CASCADE;
+
         ALTER TABLE core.graph SET UNLOGGED;
         ALTER TABLE core.edge SET UNLOGGED;
         ALTER TABLE core.node SET UNLOGGED;
@@ -98,7 +100,7 @@ BEGIN
     
         edge_count := (SELECT count(*) FROM core.edge);
         RAISE NOTICE E'\tcore.edge now has % entries', edge_count;
-        VACUUM ANALYZE;
+        ANALYZE;
         COMMIT;
         RAISE NOTICE E'\tExecution time: %', 
             to_char(clock_timestamp() - start_time, 'MI:SS');
@@ -191,7 +193,29 @@ BEGIN
     
         lang_count := (SELECT count(*) FROM core.lang);
         RAISE NOTICE E'\tcore.lang now has % entries', lang_count;
-        VACUUM ANALYZE;
+        ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
+<<add_language_counts>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        lang RECORD;
+    BEGIN
+        RAISE NOTICE 'ADDING COUNT IN CORE.LANG';
+
+        WITH lang_counts AS (
+            SELECT lang_code, count(*)
+            FROM core.node
+            GROUP BY lang_code
+        )
+        UPDATE core.lang
+        SET node_count = lang_counts.count
+        FROM lang_counts
+        WHERE lang_counts.lang_code = lang.lang_code;
+
         COMMIT;
         RAISE NOTICE E'\tExecution time: %', 
             to_char(clock_timestamp() - start_time, 'MI:SS');
@@ -214,7 +238,7 @@ BEGIN
 
         graph_count := (SELECT count(*) FROM core.graph);
         RAISE NOTICE E'\tcore.graph now has % entries', graph_count;
-        VACUUM ANALYZE;
+        ANALYZE;
         COMMIT;
         RAISE NOTICE E'\tExecution time: %', 
             to_char(clock_timestamp() - start_time, 'MI:SS');
@@ -232,9 +256,9 @@ BEGIN
         LOOP
 
             section_start_time := clock_timestamp();
-            graph_count := (SELECT count(*) FROM core.graph);
+            graph_count := (SELECT count(*) FROM core.graph WHERE rank = rnk);
             RAISE NOTICE E'\trank: %', rnk;
-            RAISE NOTICE E'\t\tcore.graph had % entries', graph_count;
+            RAISE NOTICE E'\t\tcore.graph has % entries', graph_count;
             INSERT INTO core.graph(child_id, parent_id, rank)
                 SELECT
                     graph.child_id,
@@ -254,7 +278,7 @@ BEGIN
                 EXIT;
             END IF;
             rnk := rnk + 1;
-            VACUUM ANALYZE;
+            ANALYZE;
             COMMIT;
             RAISE NOTICE E'\t\tTime elapsed: %', 
                 to_char(clock_timestamp() - section_start_time, 'MI:SS');
