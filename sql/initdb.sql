@@ -282,7 +282,6 @@ BEGIN
 <<add_language_counts>>
     DECLARE
         start_time timestamp := clock_timestamp();
-        lang RECORD;
     BEGIN
         RAISE NOTICE 'ADDING COUNT IN CORE.LANG';
 
