@@ -37,7 +37,7 @@ BEGIN
         GET DIAGNOSTICS deleted_rows := ROW_COUNT;
     
         RAISE NOTICE E'\tPurged % entries from core.node of unwanted POSSs',
-            lang_count;
+            deleted_rows;
         ANALYZE;
         COMMIT;
         RAISE NOTICE E'\tExecution time: %', 
@@ -125,6 +125,100 @@ BEGIN
             to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
+<<purge_unlinked_nodes>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        node_count integer;
+    BEGIN
+        RAISE NOTICE 'PURGING CORE.NODE';
+
+        node_count := (SELECT count(*) FROM core.node);
+        RAISE NOTICE E'\tcore.node had % entries', node_count;
+
+        INSERT INTO pre.staging_node
+            SELECT *
+            FROM core.node
+            WHERE node.node_id IN (
+                SELECT DISTINCT child_id FROM core.edge
+                UNION
+                SELECT DISTINCT parent_id FROM core.edge
+            );
+
+        TRUNCATE TABLE core.node;
+
+        INSERT INTO core.node
+            SELECT * FROM pre.staging_node;
+        
+        TRUNCATE TABLE pre.staging_node;
+    
+        node_count := (SELECT count(*) FROM core.node);
+        RAISE NOTICE E'\tcore.node now has % entries', node_count;
+        ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
+<<purge_no_value_form_of_nodes>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        node_count integer;
+    BEGIN
+        RAISE NOTICE 'PURGING CORE.NODE OF NO VALUE FORM_OF NODES';
+
+        INSERT INTO pre.staging_node
+            SELECT *
+            FROM core.node
+            WHERE node.node_id IN (
+                SELECT parent_id AS del_id FROM core.edge
+                UNION
+                (SELECT child_id AS del_id FROM core.edge 
+                    WHERE edge_type <> 'form_of')
+            );
+
+        TRUNCATE TABLE core.node;
+
+        INSERT INTO core.node
+            SELECT * FROM pre.staging_node;
+        
+        TRUNCATE TABLE pre.staging_node;
+    
+        node_count := (SELECT count(*) FROM core.node);
+        RAISE NOTICE E'\tcore.node now has % entries', node_count;
+        ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
+<<fill_edge>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        edge_count integer;
+    BEGIN
+        RAISE NOTICE 'FILLING CORE.EDGE';
+
+        TRUNCATE core.edge;
+        INSERT INTO core.edge (child_id, edge_type, parent_id)
+            SELECT child.node_id, template_name, parent.node_id
+            FROM pre.link
+            JOIN core.node child
+                ON child.node_id = link.child_id
+            JOIN core.node parent
+                ON parent.lang_code = parent_lang_code
+                AND parent.word = parent_word
+            JOIN core.lang ON parent.lang_code = lang.lang_code
+        ON CONFLICT DO NOTHING;
+
+    
+        edge_count := (SELECT count(*) FROM core.edge);
+        RAISE NOTICE E'\tcore.edge now has % entries', edge_count;
+        ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
 <<fill_edges_redirect>>
     DECLARE
         start_time timestamp := clock_timestamp();
@@ -162,39 +256,6 @@ BEGIN
             to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
-<<purge_unlinked_nodes>>
-    DECLARE
-        start_time timestamp := clock_timestamp();
-        node_count integer;
-    BEGIN
-        RAISE NOTICE 'PURGING CORE.NODE';
-
-        node_count := (SELECT count(*) FROM core.node);
-        RAISE NOTICE E'\tcore.node had % entries', node_count;
-
-        INSERT INTO pre.staging_node
-            SELECT *
-            FROM core.node
-            WHERE node.node_id IN (
-                SELECT DISTINCT child_id FROM core.edge
-                UNION
-                SELECT DISTINCT parent_id FROM core.edge
-            );
-
-        TRUNCATE TABLE core.node CASCADE;
-
-        INSERT INTO core.node
-            SELECT * FROM pre.staging_node;
-        
-        TRUNCATE TABLE pre.staging_node;
-    
-        node_count := (SELECT count(*) FROM core.node);
-        RAISE NOTICE E'\tcore.node now has % entries', node_count;
-        ANALYZE;
-        COMMIT;
-        RAISE NOTICE E'\tExecution time: %', 
-            to_char(clock_timestamp() - start_time, 'MI:SS');
-    END;
 
 <<purge_empty_languages>>
     DECLARE
@@ -221,7 +282,6 @@ BEGIN
 <<add_language_counts>>
     DECLARE
         start_time timestamp := clock_timestamp();
-        lang RECORD;
     BEGIN
         RAISE NOTICE 'ADDING COUNT IN CORE.LANG';
 
