@@ -125,43 +125,6 @@ BEGIN
             to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
-<<fill_edges_redirect>>
-    DECLARE
-        start_time timestamp := clock_timestamp();
-        inserted_rows integer;
-    BEGIN
-        RAISE NOTICE 'FILLING CORE.EDGE WITH REDIRECTS';
-
-        INSERT INTO core.edge (child_id, edge_type, parent_id)
-            WITH redirect AS (
-                SELECT
-                    entry_id AS child_id,
-                    (regexp_match(redirect,'Reconstruction:(.+)/(.+)$'))[2] AS parent_word,
-                    (regexp_match(redirect,'Reconstruction:(.+)/(.+)$'))[1] AS parent_lang_name
-                FROM pre.entry
-                WHERE title ^@ 'Reconstruction:' AND redirect ^@ 'Reconstruction:'
-            )
-            SELECT
-                child_id,
-                'redirect',
-                parent.node_id
-            FROM redirect
-            JOIN core.node AS child ON child_id = child.node_id
-            JOIN core.lang ON lang.lang_name = redirect.parent_lang_name
-            JOIN core.node AS parent
-                ON parent.word = redirect.parent_word
-                AND parent.lang_code = lang.lang_code;
-
-        GET DIAGNOSTICS inserted_rows := ROW_COUNT;
-        RAISE NOTICE E'\tInserted % new rows into core.node (redirect)',
-            to_char(inserted_rows, '999,999,999');
-
-        CREATE INDEX ON core.edge (parent_id);
-        COMMIT;
-        RAISE NOTICE E'\tExecution time: %', 
-            to_char(clock_timestamp() - start_time, 'MI:SS');
-    END;
-
 <<purge_unlinked_nodes>>
     DECLARE
         start_time timestamp := clock_timestamp();
