@@ -25,6 +25,25 @@ BEGIN
             to_char(clock_timestamp() - start_time, 'MI:SS');
     END;
 
+<<purge_entries_unwanted_poss>>
+    DECLARE
+        start_time timestamp := clock_timestamp();
+        deleted_rows integer;
+    BEGIN
+        RAISE NOTICE 'PURGING CORE.NODE OF UNWANTED POSS';
+
+        DELETE FROM pre.entry
+            WHERE pos = 'suffix' OR pos = 'prefix';
+        GET DIAGNOSTICS deleted_rows := ROW_COUNT;
+    
+        RAISE NOTICE E'\tPurged % entries from core.node of unwanted POSSs',
+            lang_count;
+        ANALYZE;
+        COMMIT;
+        RAISE NOTICE E'\tExecution time: %', 
+            to_char(clock_timestamp() - start_time, 'MI:SS');
+    END;
+
 <<fill_nodes>>
     DECLARE
         start_time timestamp := clock_timestamp();
@@ -356,13 +375,13 @@ BEGIN
         ALTER TABLE core.node ADD CONSTRAINT node_lang_code_fkey
             FOREIGN KEY (lang_code) REFERENCES core.lang;
         ALTER TABLE core.edge ADD CONSTRAINT edge_child_id_fkey
-            FOREIGN KEY (child_id) REFERENCES core.node;
+            FOREIGN KEY (child_id) REFERENCES core.node ON DELETE CASCADE;
         ALTER TABLE core.edge ADD CONSTRAINT edge_parent_id_fkey
-            FOREIGN KEY (parent_id) REFERENCES core.node;
+            FOREIGN KEY (parent_id) REFERENCES core.node ON DELETE CASCADE;
         ALTER TABLE core.graph ADD CONSTRAINT graph_child_id_fkey
-            FOREIGN KEY (child_id) REFERENCES core.node;
+            FOREIGN KEY (child_id) REFERENCES core.node ON DELETE CASCADE;
         ALTER TABLE core.graph ADD CONSTRAINT graph_parent_id_fkey
-            FOREIGN KEY (parent_id) REFERENCES core.node;
+            FOREIGN KEY (parent_id) REFERENCES core.node ON DELETE CASCADE;
 
         ALTER TABLE core.node SET LOGGED;
         ALTER TABLE core.edge SET LOGGED;
