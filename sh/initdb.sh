@@ -15,7 +15,6 @@ psql --file=sql/data/template.data
 
 psql --file=sql/initdb.sql
 
-source .venv/bin/activate
-python3.10 src/etyviz/parse_wiktextract.py
 
-psql -c 'CALL initdb();'
+
+
