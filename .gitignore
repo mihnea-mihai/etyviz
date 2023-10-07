@@ -163,7 +163,8 @@ test.py
 .vscode/
 
 graphs/*
-!graphs/.gitkeep
+!graphs/showcase/
+graphs/showcase/*.gv
 
 storage/*
 !storage/.gitkeep
