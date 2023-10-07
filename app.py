@@ -1,6 +1,5 @@
 # save this as app.py
 import pydot
-import graphviz
 from flask import Flask, request, send_file, render_template
 
 from etyviz import core, ui
@@ -16,18 +15,17 @@ def graph():
     filter_lang = request.args.get("filter-lang", "")
     match graph_type:
         case "history":
-            dot_string = core.get_ascendant_graph(word, lang_name)
+            dot_string = core.get_ascendant_graph_dot(word, lang_name)
         case "children":
             dot_string = core.get_descendant_graph(word, lang_name, filter_lang)
         case "relationships":
-            dot_string = core.get_related_graph(word, lang_name, filter_lang)
+            dot_string = core.get_related_graph_dot(word, lang_name, filter_lang)
         case _:
             return "", 500
     if not dot_string:
         return "", 404
     filename = f"graphs/{word}_{lang_name}_{graph_type}_{filter_lang}.pdf"
-    gv = graphviz.Source(dot_string)
-    gv.unflatten(1000, True, chain=10).render(outfile=filename)
+    core.generate_file_from_dot(dot_string, filename)
     return send_file(filename)
 
 

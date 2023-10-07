@@ -1,6 +1,7 @@
 """Database wrappers."""
 from typing import Union, Optional, Sequence, Mapping, Any
 
+import graphviz
 import psycopg
 
 
@@ -30,7 +31,7 @@ def select(
             return cur.fetchall()
 
 
-def get_ascendant_graph(word: str, lang_name: str) -> str:
+def get_ascendant_graph_dot(word: str, lang_name: str) -> str:
     return select("SELECT get_ascendant_graph(%s, %s)", [word, lang_name])[0][0]
 
 
@@ -40,7 +41,7 @@ def get_descendant_graph(word: str, lang_name: str, filter_lang_name: str) -> st
     )[0][0]
 
 
-def get_related_graph(word: str, lang_name: str, filter_lang_name: str) -> str:
+def get_related_graph_dot(word: str, lang_name: str, filter_lang_name: str) -> str:
     return select(
         "SELECT get_related_graph(%s, %s, %s)", [word, lang_name, filter_lang_name]
     )[0][0]
@@ -50,3 +51,7 @@ def view_all() -> str:
     if select("SELECT count(*) FROM pre.entry")[0][0] > 10000:
         return ""
     return select("SELECT view_all()")[0][0]
+
+def generate_file_from_dot(dot: str, filename: str) -> None:
+    gv = graphviz.Source(dot)
+    gv.unflatten(1000, True, chain=10).render(outfile=filename)
