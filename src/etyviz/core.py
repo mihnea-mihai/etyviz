@@ -34,12 +34,6 @@ def get_ascendant_graph(word: str, lang_name: str) -> str:
     return select("SELECT get_ascendant_graph(%s, %s)", [word, lang_name])[0][0]
 
 
-def get_descendant_graph(word: str, lang_name: str, filter_lang_name: str) -> str:
-    return select(
-        "SELECT get_descendant_graph(%s, %s, %s)", [word, lang_name, filter_lang_name]
-    )[0][0]
-
-
 def get_related_graph(word: str, lang_name: str, filter_lang_name: str) -> str:
     return select(
         "SELECT get_related_graph(%s, %s, %s)", [word, lang_name, filter_lang_name]

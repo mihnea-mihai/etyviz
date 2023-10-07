@@ -17,8 +17,6 @@ def graph():
     match graph_type:
         case "history":
             dot_string = core.get_ascendant_graph(word, lang_name)
-        case "children":
-            dot_string = core.get_descendant_graph(word, lang_name, filter_lang)
         case "relationships":
             dot_string = core.get_related_graph(word, lang_name, filter_lang)
         case _:
