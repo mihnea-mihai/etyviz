@@ -52,6 +52,31 @@ def view_all() -> str:
         return ""
     return select("SELECT view_all()")[0][0]
 
+
 def generate_file_from_dot(dot: str, filename: str) -> None:
     gv = graphviz.Source(dot)
     gv.unflatten(1000, True, chain=10).render(outfile=filename)
+
+
+def generate_showcase() -> None:
+    sdir = "graphs/showcase"
+    generate_file_from_dot(
+        get_related_graph_dot("pleca", "Romanian", "Romanian"),
+        f"{sdir}/Plec cu plosca exploatând un fiasco.pdf",
+    )
+    generate_file_from_dot(
+        get_related_graph_dot("Angst", "German", "Romanian"),
+        f"{sdir}/Îngustimea angoasei.pdf",
+    )
+    generate_file_from_dot(
+        get_related_graph_dot("sobor", "Romanian", "Aromanian"),
+        f"{sdir}/Furând furtuna friptă și ferită de sobor.pdf",
+    )
+    generate_file_from_dot(
+        get_related_graph_dot("câmp", "Romanian", "Romanian"),
+        f"{sdir}/Campionatul campestru al șampaniei câmpenești.pdf",
+    )
+
+
+if __name__ == "__main__":
+    generate_showcase()
