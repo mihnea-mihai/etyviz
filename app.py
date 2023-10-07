@@ -15,7 +15,7 @@ def graph():
     filter_lang = request.args.get("filter-lang", "")
     match graph_type:
         case "history":
-            dot_string = core.get_ascendant_graph(word, lang_name)
+            dot_string = core.get_ascendant_graph_dot(word, lang_name)
         case "relationships":
             dot_string = core.get_related_graph_dot(word, lang_name, filter_lang)
         case _:
