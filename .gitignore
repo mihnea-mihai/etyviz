@@ -167,6 +167,6 @@ graphs/*
 graphs/showcase/*.gv
 
 storage/*
-!storage/.gitkeep
+!storage/test/
 
 schemaspy/

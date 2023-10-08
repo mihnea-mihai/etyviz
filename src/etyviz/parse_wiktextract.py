@@ -5,7 +5,7 @@ import sys
 import psycopg
 
 
-def insert_lines(lite: bool = False, batch_size: int = 10000):
+def insert_lines(test: bool = False, batch_size: int = 10000):
     """Read the Wiktextract dump and insert each line
     into the database.
 
@@ -25,13 +25,10 @@ def insert_lines(lite: bool = False, batch_size: int = 10000):
     start = datetime.datetime.now()
     print("Import started at: ", start)
 
-    if lite:
-        filename = "storage/raw-wiktextract-data-lite.json"
-    else:
-        filename = "storage/raw-wiktextract-data.json"
-
+    filename = f"storage/{'test/' if test else ''}raw-wiktextract-data.json"
+    dbname = "etyviz-test" if test else "etyviz"
     # pylint: disable=E1129
-    with psycopg.connect("dbname=etyviz") as conn:
+    with psycopg.connect(f"dbname={dbname}") as conn:
         with conn.cursor() as cur:
             cur.execute("SELECT count(*) FROM pre.entry")
             if result := cur.fetchone():
@@ -63,7 +60,5 @@ def insert_lines(lite: bool = False, batch_size: int = 10000):
 
 
 if __name__ == "__main__":
-    try:
-        insert_lines(bool(sys.argv[1]))
-    except IndexError:
-        insert_lines()
+    # run as test if script is called with arguments
+    insert_lines(len(sys.argv) > 1)

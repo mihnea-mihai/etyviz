@@ -46,7 +46,7 @@ def insert_lines():
     i = 0
     with open("storage/raw-wiktextract-data.json", encoding="utf-8") as file:
         with open(
-            "storage/raw-wiktextract-data-lite.json", mode="w", encoding="utf-8"
+            "storage/test/raw-wiktextract-data.json", mode="w", encoding="utf-8"
         ) as out:
             for line in file:
                 i += 1
