@@ -25,7 +25,7 @@ def insert_lines(test: bool = False, batch_size: int = 10000):
     start = datetime.datetime.now()
     print("Import started at: ", start)
 
-    filename = f"storage/{'test/' if test else ''}raw-wiktextract-data.json"
+    filename = f"storage/{'test/' if test else ''}raw-wiktextract-data.jsonl"
     dbname = "etyviz-test" if test else "etyviz"
     # pylint: disable=E1129
     with psycopg.connect(f"dbname={dbname}") as conn:

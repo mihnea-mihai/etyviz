@@ -146,6 +146,8 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
 
     CREATE EXTENSION unaccent;
 
+    ALTER TEXT SEARCH DICTIONARY unaccent (RULES='etyviz');
+
     CREATE FUNCTION pre.sanitize_word (word text, diacr bool)
         RETURNS text LANGUAGE SQL IMMUTABLE AS $$ SELECT     
             CASE WHEN diacr IS TRUE

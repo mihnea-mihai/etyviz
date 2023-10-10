@@ -35,6 +35,19 @@ lemmas = [
     "fyr",
     "-wr̥",
     "péh₂wr̥",
+    "etymology",
+    "etymologia",
+    "ἐτυμολογία",
+    "ἐτυμόλογος",
+    "ἔτυμος",
+    "-ία",
+    "ἔτυμον",
+    "λόγος",
+    "Michael",
+    "מיכאל",
+    "מי",
+    "כ־",
+    "אל",
 ]
 
 titles = ["Reconstruction:Proto-Indo-European/wédōr"]
@@ -44,9 +57,9 @@ def insert_lines():
     start = datetime.datetime.now()
     print("Import started at: ", start)
     i = 0
-    with open("storage/raw-wiktextract-data.json", encoding="utf-8") as file:
+    with open("storage/raw-wiktextract-data.jsonl", encoding="utf-8") as file:
         with open(
-            "storage/test/raw-wiktextract-data.json", mode="w", encoding="utf-8"
+            "storage/test/raw-wiktextract-data.jsonl", mode="w", encoding="utf-8"
         ) as out:
             for line in file:
                 i += 1
@@ -54,7 +67,7 @@ def insert_lines():
                 word = jdoc.get("word")
                 title = jdoc.get("title")
                 if word in lemmas or title in titles:
-                    out.write(json.dumps(jdoc) + "\n")
+                    out.write(json.dumps(jdoc, ensure_ascii=False) + "\n")
                     print(word)
                 if i % 100000 == 0:
                     print("Total processed rows:", i)
