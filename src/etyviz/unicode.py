@@ -21,9 +21,9 @@ with open("sql/etyviz.rules", "w", encoding="utf-8") as file:
             continue
         conv = unicodedata.normalize("NFD", c)
 
-        # if unicodedata.combining(c):
-        #     file.write(f"{c}\n")
-        #     continue
+        if unicodedata.combining(c):
+            file.write(f"{c}\n")
+            continue
         if len(conv) > 1:
             stripped = "".join(
                 convc
