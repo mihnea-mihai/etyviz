@@ -1,6 +1,6 @@
 if [[ ! $1 ]]
 then
-    pg_dump --dbname=etyviz --data-only --table=pre.entry --format=custom --file='storage/entry.dump'
+    pg_dump --dbname=etyviz --data-only --table=pre.entry --format=custom --file='storage/entry.dump' --verbose
 else
     echo Ignoring pre.entry
 fi
@@ -33,7 +33,7 @@ fi
 
 if [ ! $1 ]
 then
-    pg_restore storage/entry.dump
+    pg_restore storage/entry.dump --dbname=etyviz --verbose
 else
     source .venv/bin/activate
     python3.10 src/etyviz/parse_wiktextract.py
