@@ -404,7 +404,7 @@ BEGIN
 
         UPDATE core.node
             SET dot = pre.word_dot(
-                node_id, word, lang.lang_name, etym_no, pos, translit, gloss)
+                node_id, word, lang.lang_name, etym_no, pos, translit, gloss, lang.lang_code)
             FROM core.lang
             WHERE core.node.lang_code = core.lang.lang_code;
         COMMIT;

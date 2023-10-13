@@ -65,18 +65,37 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
         $$;
 
         CREATE OR REPLACE FUNCTION pre.word_dot (
-            node_id integer,
-            word text,
-            lang text,
-            etym_no smallint,
-            pos text,
-            translit text,
-            gloss text) RETURNS text LANGUAGE SQL IMMUTABLE AS $$ SELECT
-            concat(node_id, ' [label=<', lang, ' <I>(', pos, ')</I>',
-                '<BR/><FONT POINT-SIZE="25"><B>', word, '</B></FONT>',
-                '<SUP>', COALESCE(etym_no::text, ' '), '</SUP>', '<BR/><I>',
-                pre.wrap_text(pre.dot_escape(COALESCE(gloss, ' ')), 30, '<BR/>'),
-                '</I>', '>]');
+            qnode_id integer,
+            qword text,
+            qlang text,
+            qetym_no smallint,
+            qpos text,
+            qtranslit text,
+            qgloss text,
+            qlang_code text) RETURNS text LANGUAGE SQL IMMUTABLE AS $$
+            WITH base AS (SELECT
+                qnode_id AS node_id,
+                qlang AS lang,
+                concat('<I>(', qpos, ')</I>') AS pos,
+                concat('<FONT POINT-SIZE="25"><B>', qword, '</B></FONT>') AS word,
+                concat('<SUP>', COALESCE(qetym_no::text, ' '), '</SUP>') AS etym_no,
+                CASE WHEN qtranslit IS NULL
+                    THEN ''
+                ELSE
+                    concat('<BR/><FONT POINT-SIZE="25">', qtranslit, '</FONT>')
+                END AS translit,
+                concat('<I>', pre.wrap_text(
+                    pre.dot_escape(COALESCE(qgloss, ' ')), 30, '<BR/>'
+                    ), '</I>') AS gloss,
+                CASE WHEN qlang_code LIKE '%-pro'
+                    THEN concat('https://en.wiktionary.org/wiki/Reconstruction:', qlang, '/', qword)
+                ELSE
+                    concat('https://en.wiktionary.org/wiki/', qword, '#', qlang)
+                END AS href)
+            SELECT
+                concat(node_id, ' [label=<', lang, pos, '<BR/>', word, etym_no, translit,
+                    '<BR/>', gloss, '> href="', href, '"]')
+                FROM base;
         $$;
 
 -- Create edges
