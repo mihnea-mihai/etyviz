@@ -48,6 +48,13 @@ lemmas = [
     "מי",
     "כ־",
     "אל",
+    "zbura",
+    "exvolare",
+    "volo",
+    "welō",
+    "welh₁-",
+    "gʷelāō",
+    "gʷelH-",
 ]
 
 titles = ["Reconstruction:Proto-Indo-European/wédōr"]
@@ -69,7 +76,7 @@ def insert_lines():
                 if word in lemmas or title in titles:
                     out.write(json.dumps(jdoc, ensure_ascii=False) + "\n")
                     print(word)
-                if i % 1000000 == 0:
+                if i % 100000 == 0:
                     print("Total processed rows:", i)
 
     end = datetime.datetime.now()
