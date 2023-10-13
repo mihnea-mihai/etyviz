@@ -167,6 +167,8 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
 
     ALTER TEXT SEARCH DICTIONARY unaccent (RULES='etyviz');
 
+    CREATE EXTENSION pg_trgm;
+
     CREATE FUNCTION pre.sanitize_word (word text, diacr bool)
         RETURNS text LANGUAGE SQL IMMUTABLE AS $$ SELECT     
             CASE WHEN diacr IS TRUE
@@ -184,6 +186,16 @@ CREATE OR REPLACE FUNCTION pre.wrap_text(
             lang.real_code AS parent_lang_code
         FROM pre.raw_link
         JOIN pre.lang ON raw_link.parent_lang_code = lang.lang_code;
+
+    CREATE OR REPLACE FUNCTION pre.disambiguate (
+        qgloss text, qword text, qlang_code text
+    ) RETURNS int LANGUAGE SQL IMMUTABLE AS $$
+        SELECT node_id
+        FROM core.node
+        WHERE word = qword AND lang_code = qlang_code
+        ORDER BY similarity(qgloss, gloss) DESC
+        LIMIT 1;
+    $$;
 
 -- Purge unlinked nodes
 

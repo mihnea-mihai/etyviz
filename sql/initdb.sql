@@ -111,8 +111,8 @@ BEGIN
             JOIN core.node child
                 ON child.node_id = link.child_id
             JOIN core.node parent
-                ON parent.lang_code = parent_lang_code
-                AND parent.word = parent_word
+                ON parent.node_id = pre.disambiguate(
+                    child.gloss, parent_word, parent_lang_code)
             JOIN core.lang ON parent.lang_code = lang.lang_code
         ON CONFLICT DO NOTHING;
 
@@ -205,8 +205,8 @@ BEGIN
             JOIN core.node child
                 ON child.node_id = link.child_id
             JOIN core.node parent
-                ON parent.lang_code = parent_lang_code
-                AND parent.word = parent_word
+                ON parent.node_id = pre.disambiguate(
+                    child.gloss, parent_word, parent_lang_code)
             JOIN core.lang ON parent.lang_code = lang.lang_code
         ON CONFLICT DO NOTHING;
 
