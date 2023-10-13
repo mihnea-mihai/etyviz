@@ -36,7 +36,7 @@ CREATE VIEW ui.family AS (
     JOIN ui.graph ON (graph.child).node_id = node.node_id
 );
 
-CREATE OR REPLACE FUNCTION get_ascendant_graph(
+CREATE OR REPLACE FUNCTION ui.get_ascendant_graph(
     qword text, qlang_name text) RETURNS text AS $$
 DECLARE
     node_ids int[];
@@ -66,6 +66,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION ui.get_related_graph(
     qword text, qlang_name text, flang_name text) RETURNS text AS $$
 DECLARE
     child_ids int[];

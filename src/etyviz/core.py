@@ -32,12 +32,12 @@ def select(
 
 
 def get_ascendant_graph_dot(word: str, lang_name: str) -> str:
-    return select("SELECT get_ascendant_graph(%s, %s)", [word, lang_name])[0][0]
+    return select("SELECT ui.get_ascendant_graph(%s, %s)", [word, lang_name])[0][0]
 
 
 def get_related_graph_dot(word: str, lang_name: str, filter_lang_name: str) -> str:
     return select(
-        "SELECT get_related_graph(%s, %s, %s)", [word, lang_name, filter_lang_name]
+        "SELECT ui.get_related_graph(%s, %s, %s)", [word, lang_name, filter_lang_name]
     )[0][0]
 
 
