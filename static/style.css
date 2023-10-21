@@ -24,7 +24,8 @@ form {
     text-align: center;
 }
 
-.text-input > * {
+.text-input > label,
+.text-input > input {
     display: block;
     margin: auto;
     padding: 1vh 1vw;
@@ -82,25 +83,7 @@ input.pending {
     color: var(--warning-color);
 }
 
-.dropdown > span {
-    display: block;
-}
-.dropdown > span:hover {
-    /* opacity: 69%; */
-    cursor: pointer;
-    color: var(--accent-color);
-    background-color: var(--sec-bg-color);
-}
-
 footer {
     font-size: small;
     text-align: center;
-}
-
-input.valid + div.dropdown {
-    display: none;
-}
-
-input.invalid + div.dropdown {
-    display: unset;
 }

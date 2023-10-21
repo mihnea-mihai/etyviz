@@ -21,27 +21,27 @@
       <div class="text-input lang">
         <label for="lang">Language</label>
         <input type="search" name="lang" id="lang" autocomplete="off" autocorrect="off" autocapitalize="none"
-          class="pending" required />
-        <div class="dropdown"></div>
+          class="pending" list="lang-list" required />
+        <datalist class="dropdown" id="lang-list"></datalist>
       </div>
       <div class="text-input word">
         <label for="word">Word</label>
         <input type="search" placeholder="" name="word" id="word" autocomplete="off" autocorrect="off"
-          autocapitalize="none" class="pending" required />
-        <div class="dropdown"></div>
+          autocapitalize="none" class="pending" list="word-list"  required />
+        <datalist class="dropdown" id="word-list"></datalist>
       </div>
       <div>
         <!-- <label for="graph">Graph type</label> -->
-        <input type="radio" id="history" name="graph" value="history" checked autocomplete="off"/>
+        <input type="radio" id="history" name="graph" value="history" checked autocomplete="off" />
         <label for="history">Etymology</label>
-        <input type="radio" id="relationships" name="graph" value="relationships" autocomplete="off"/>
+        <input type="radio" id="relationships" name="graph" value="relationships" autocomplete="off" />
         <label for="relationships">Relationships</label>
       </div>
       <div class="text-input filter-lang" hidden>
         <label for="filter-lang">Filter language</label>
         <input type="search" name="filter-lang" id="filter-lang" autocomplete="off" autocorrect="off"
-          autocapitalize="none" class="pending" disabled />
-        <div class="dropdown"></div>
+          autocapitalize="none" class="pending" list="filter-lang-list" disabled />
+        <datalist class="dropdown" id="filter-lang-list"></datalist>
       </div>
       <input id="generate" type="submit" value="Generate" class="">
     </form>

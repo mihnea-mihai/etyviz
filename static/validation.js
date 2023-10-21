@@ -1,14 +1,6 @@
 let timeouts = {};
 langInput = document.getElementById('lang');
 
-function clickDropdown() {
-    inp = this.parentElement.parentElement
-        .getElementsByTagName('input')[0];
-    inp.value = this.innerText;
-    inp.className = 'valid';
-    this.parentElement.innerHTML = '';
-}
-
 async function fetchApi(input, apiType) {
     let apiName = 'lang';
     let langInfo = '';
@@ -36,9 +28,6 @@ async function suggestInput(input) {
     let dropdown = input.parentElement
         .getElementsByClassName('dropdown')[0]
     dropdown.innerHTML = txt
-    for (const span of dropdown.getElementsByTagName('span')) {
-        span.addEventListener('click', clickDropdown);
-    }
 }
 
 function suggestInputDelayed() {
@@ -55,8 +44,10 @@ function validateInputDelayed() {
 
 function addValidation(inputId) {
     let input = document.getElementById(inputId);
-    input.addEventListener('keyup', validateInputDelayed);
-    input.addEventListener('keyup', suggestInputDelayed);
+    for (const eventType of ['input', 'focus']) {
+        input.addEventListener(eventType, validateInputDelayed);
+        input.addEventListener(eventType, suggestInputDelayed);
+    }
 }
 
 for (const elemId of ['lang', 'word', 'filter-lang']) {
