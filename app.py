@@ -5,6 +5,8 @@ from flask import Flask, request, send_file, render_template
 from etyviz import core, ui
 
 app = Flask(__name__)
+app.jinja_options["trim_blocks"] = True
+app.jinja_options["lstrip_blocks"] = True
 
 
 @app.route("/graph", methods=["GET"])
@@ -21,7 +23,7 @@ def graph():
         case _:
             return "", 500
     if not dot_string:
-        return "", 404
+        return render_template("404.html.jinja"), 404
     filename = f"graphs/{word}_{lang_name}_{graph_type}_{filter_lang}.pdf"
     core.generate_file_from_dot(dot_string, filename)
     return send_file(filename)
@@ -41,14 +43,14 @@ def view_all():
 
 @app.route("/", methods=["GET"])
 def hello():
-    return render_template("home.html", version="1.0.0")
+    return render_template("home.html.jinja", version="1.0.0")
 
 
 @app.route("/api/suggest/lang", methods=["GET"])
 def suggest_lang():
     """Return a HTML dropdown of filtered language names based on input letters."""
     langs = ui.suggest_lang(request.args["lang"])
-    return render_template("dropdown.html", elems=langs)
+    return render_template("dropdown.html.jinja", elems=langs)
 
 
 @app.route("/api/validate/lang", methods=["GET"])
@@ -65,7 +67,7 @@ def suggest_word():
     # if len(part_word) < 3:
     #     return "", 400
     words = ui.suggest_word(lang_name, part_word)
-    return render_template("dropdown.html", elems=words)
+    return render_template("dropdown.html.jinja", elems=words)
 
 
 @app.route("/api/validate/word", methods=["GET"])

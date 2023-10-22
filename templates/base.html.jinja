@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ language|default('en') }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title|default('etyviz') }}</title>
+  <link rel="icon" type="image/x-icon" href="../static/assets/img/favicon.png">
+  <link rel="stylesheet" href="/static/style.css">
+  {% for name in ['selection', 'validation'] %}
+  <script src="/static/{{name}}.js" defer></script>
+  {% endfor %}
+</head>
+
+<body>
+  <header>
+    {% include "github-corner.html.jinja" %}
+    <img id="banner" src="../static/assets/img/Etyviz.drawio.svg">
+  </header>
+  <main>
+    {% block main required %}
+    {% endblock main %}
+  </main>
+  <footer>
+    <span>etyviz {{ version }}</span>
+    <span> · </span>
+    <a href="https://github.com/mihnea-mihai/etyviz/issues">Report an issue</a>
+    <span> · </span>
+    <a href="https://github.com/mihnea-mihai/etyviz/tree/main/graphs/showcase">Showcase</a>
+  </footer>
+</body>
+
+</html>
