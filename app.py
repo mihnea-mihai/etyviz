@@ -78,5 +78,10 @@ def validate_word():
     return "", 204 if valid else 404
 
 
+@app.route("/robots.txt")
+def robots():
+    return render_template("robots.txt")
+
+
 if __name__ == "__main__":
     app.run(port=80, host="0.0.0.0")
