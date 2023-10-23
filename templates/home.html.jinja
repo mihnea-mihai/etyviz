@@ -1,5 +1,4 @@
 {% extends "base.html.jinja" %}
-{% set title = 'etyviz ' ~ version %}
 
 {% macro textInput(id, label, hidden=False) %}
 <div class="text-input {{id}}" {% if hidden %} hidden {% endif %}>
@@ -10,6 +9,7 @@
 </div>
 {% endmacro %}
 
+{% block title %}etyviz {{version}}{% endblock %}
 {% block main %}
 <form action="/graph" method="GET" target="_blank">
   {{ textInput('lang', 'Language') }}
