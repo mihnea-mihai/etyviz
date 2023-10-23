@@ -4,7 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{{title|default('etyviz')}}{% endblock %}</title>
+  <meta property="og:title" content="{% block title %}{{title|default('etyviz')}}{% endblock %}" />
+  <meta property="og:description" content="{% block social_description %}{% endblock %}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/static/assets/img/social-banner.png" />
+  <meta property="og:url" content="https://etyviz.mihai.lu/" />
+  <meta property="og:site_name" content="{{self.title()}}" />
+  <title>{{self.title()}}</title>
   <link rel="icon" type="image/x-icon" href="../static/assets/img/favicon.png">
   <link rel="stylesheet" href="/static/style.css">
   {% for name in ['selection', 'validation'] %}
