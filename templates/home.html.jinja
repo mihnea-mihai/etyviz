@@ -10,6 +10,11 @@
 {% endmacro %}
 
 {% block title %}etyviz {{version}}{% endblock %}
+
+{% block social_description %}
+Visualize the world's etymologies.
+{% endblock social_description %}
+
 {% block main %}
 <form action="/graph" method="GET" target="_blank">
   {{ textInput('lang', 'Language') }}
