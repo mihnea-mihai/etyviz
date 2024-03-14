@@ -17,7 +17,6 @@ classifiers = [
 ]
 
 dependencies = [
-    "psycopg==3.1.9","psycopg-binary==3.1.9","typing_extensions==4.6.3"
 ]
 
 [project.urls]

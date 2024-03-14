@@ -8,6 +8,8 @@ Its main purpose is to present etymological information in a
 standardized, print-friendly format to be used by
 language enthusiasts and scholars alike.
 
+https://kaikki.org/dictionary/errors/mapping/index.html
+
 ## Output
 
 ![](/static/assets/img/example.svg)

@@ -170,3 +170,5 @@ storage/*
 !storage/test/
 
 schemaspy/
+
+data/wiktextract.jsonl

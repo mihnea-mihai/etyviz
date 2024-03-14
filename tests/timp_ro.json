@@ -1,0 +1,326 @@
+{
+    "derived": [
+      {
+        "word": "anotimp"
+      },
+      {
+        "word": "la timp"
+      }
+    ],
+    "etymology_templates": [
+      {
+        "args": {
+          "1": "Inherited"
+        },
+        "expansion": "Inherited",
+        "name": "glossary"
+      },
+      {
+        "args": {
+          "1": "ro",
+          "2": "la",
+          "3": "tempus",
+          "4": "",
+          "5": "time",
+          "g": "",
+          "g2": "",
+          "g3": "",
+          "id": "",
+          "lit": "",
+          "nocat": "",
+          "pos": "",
+          "sc": "",
+          "sort": "",
+          "tr": "",
+          "ts": ""
+        },
+        "expansion": "Latin tempus (“time”)",
+        "name": "inh"
+      },
+      {
+        "args": {
+          "1": "ro",
+          "2": "la",
+          "3": "tempus",
+          "4": "",
+          "5": "time"
+        },
+        "expansion": "Inherited from Latin tempus (“time”)",
+        "name": "inh+"
+      },
+      {
+        "args": {
+          "1": "ro",
+          "2": "ine-pro",
+          "3": "*tempos",
+          "4": "",
+          "5": "stretch"
+        },
+        "expansion": "Proto-Indo-European *tempos (“stretch”)",
+        "name": "inh"
+      },
+      {
+        "args": {
+          "1": "ine-pro",
+          "2": "*temp-",
+          "3": "",
+          "4": "to stetch, string"
+        },
+        "expansion": "*temp- (“to stetch, string”)",
+        "name": "m"
+      }
+    ],
+    "etymology_text": "Inherited from Latin tempus (“time”), from Proto-Indo-European *tempos (“stretch”), from the root *temp- (“to stetch, string”).",
+    "forms": [
+      {
+        "form": "timpuri",
+        "tags": [
+          "plural"
+        ]
+      },
+      {
+        "form": "",
+        "source": "declension",
+        "tags": [
+          "table-tags"
+        ]
+      },
+      {
+        "form": "ro-noun-n-uri",
+        "source": "declension",
+        "tags": [
+          "inflection-template"
+        ]
+      },
+      {
+        "form": "timp",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "indefinite",
+          "nominative",
+          "singular"
+        ]
+      },
+      {
+        "form": "un timp",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "indefinite",
+          "nominative",
+          "singular"
+        ]
+      },
+      {
+        "form": "timpul",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "definite",
+          "nominative",
+          "singular"
+        ]
+      },
+      {
+        "form": "timpuri",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "indefinite",
+          "nominative",
+          "plural"
+        ]
+      },
+      {
+        "form": "niște timpuri",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "indefinite",
+          "nominative",
+          "plural"
+        ]
+      },
+      {
+        "form": "timpurile",
+        "source": "declension",
+        "tags": [
+          "accusative",
+          "definite",
+          "nominative",
+          "plural"
+        ]
+      },
+      {
+        "form": "timp",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "genitive",
+          "indefinite",
+          "singular"
+        ]
+      },
+      {
+        "form": "unui timp",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "genitive",
+          "indefinite",
+          "singular"
+        ]
+      },
+      {
+        "form": "timpului",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "definite",
+          "genitive",
+          "singular"
+        ]
+      },
+      {
+        "form": "timpuri",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "genitive",
+          "indefinite",
+          "plural"
+        ]
+      },
+      {
+        "form": "unor timpuri",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "genitive",
+          "indefinite",
+          "plural"
+        ]
+      },
+      {
+        "form": "timpurilor",
+        "source": "declension",
+        "tags": [
+          "dative",
+          "definite",
+          "genitive",
+          "plural"
+        ]
+      },
+      {
+        "form": "timpule",
+        "source": "declension",
+        "tags": [
+          "singular",
+          "vocative"
+        ]
+      },
+      {
+        "form": "timpurilor",
+        "source": "declension",
+        "tags": [
+          "plural",
+          "vocative"
+        ]
+      }
+    ],
+    "head_templates": [
+      {
+        "args": {
+          "1": "n",
+          "2": "timpuri"
+        },
+        "expansion": "timp n (plural timpuri)",
+        "name": "ro-noun"
+      }
+    ],
+    "inflection_templates": [
+      {
+        "args": {
+          "g": "n",
+          "gpd": "timpurilor",
+          "gpi": "timpuri",
+          "gsd": "timpului",
+          "gsi": "timp",
+          "n": "",
+          "npd": "timpurile",
+          "npi": "timpuri",
+          "nsd": "timpul",
+          "nsi": "timp",
+          "vp": "timpurilor",
+          "vs": "timpule",
+          "vs2": ""
+        },
+        "name": "ro-decl-noun"
+      }
+    ],
+    "lang": "Romanian",
+    "lang_code": "ro",
+    "pos": "noun",
+    "related": [
+      {
+        "word": "timpuriu"
+      }
+    ],
+    "senses": [
+      {
+        "glosses": [
+          "time"
+        ],
+        "links": [
+          [
+            "time",
+            "time"
+          ]
+        ],
+        "tags": [
+          "neuter"
+        ]
+      },
+      {
+        "glosses": [
+          "weather"
+        ],
+        "links": [
+          [
+            "weather",
+            "weather"
+          ]
+        ],
+        "tags": [
+          "neuter"
+        ]
+      }
+    ],
+    "sounds": [
+      {
+        "ipa": "[timp]"
+      },
+      {
+        "audio": "LL-Q7913 (ron)-Filosoful-timp.wav",
+        "mp3_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9e/LL-Q7913_%28ron%29-Filosoful-timp.wav/LL-Q7913_%28ron%29-Filosoful-timp.wav.mp3",
+        "ogg_url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9e/LL-Q7913_%28ron%29-Filosoful-timp.wav/LL-Q7913_%28ron%29-Filosoful-timp.wav.ogg",
+        "text": "Audio"
+      }
+    ],
+    "synonyms": [
+      {
+        "tags": [
+          "obsolete"
+        ],
+        "word": "timpŭ"
+      },
+      {
+        "tags": [
+          "Moldavia"
+        ],
+        "word": "тимп"
+      }
+    ],
+    "word": "timp"
+  }
