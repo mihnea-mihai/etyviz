@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="etyviz" schema="public" type="PostgreSQL - 16.2 (Ubuntu 16.2-1.pgdg22.04+1)">
+   <tables>
+      <table name="edge" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="source_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="node_id" foreignKey="edge_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="link_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="target_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="node_id" foreignKey="edge_target_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
+         </column>
+         <index name="edge_target_id_link_type_source_id_idx" unique="true">
+            <column ascending="true" name="target_id"/>
+            <column ascending="true" name="link_type"/>
+            <column ascending="true" name="source_id"/>
+         </index>
+      </table>
+      <table name="lang" numRows="4492" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="lang_code" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
+            <child column="lang_code" foreignKey="node_lang_code_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
+            <child column="lang_code" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="wiktextract_parsed"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="lang_name" nullable="false" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="entry_count" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="lang_code" sequenceNumberInPK="1"/>
+         <index name="lang_pkey" unique="true">
+            <column ascending="true" name="lang_code"/>
+         </index>
+         <index name="lang_lower_idx" unique="false"/>
+      </table>
+      <table name="node" numRows="9010719" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="node_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <child column="source_id" foreignKey="edge_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="edge"/>
+            <child column="target_id" foreignKey="edge_target_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="edge"/>
+            <parent column="entry_id" foreignKey="node_node_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="wiktextract"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="word" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="lang_code" foreignKey="node_lang_code_fkey" implied="false" onDeleteCascade="false" schema="public" table="lang"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="etym_no" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="pos" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="translit" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="gloss" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <primaryKey column="node_id" sequenceNumberInPK="1"/>
+         <index name="node_pkey" unique="true">
+            <column ascending="true" name="node_id"/>
+         </index>
+         <index name="fki_node_node_id_fkey" unique="false">
+            <column ascending="true" name="node_id"/>
+         </index>
+         <index name="node_lang_code_word_etym_no_idx" unique="true">
+            <column ascending="true" name="lang_code"/>
+            <column ascending="true" name="word"/>
+            <column ascending="true" name="etym_no"/>
+         </index>
+      </table>
+      <table name="wiktextract" numRows="9491497" remarks="" schema="public" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="entry_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+            <child column="node_id" foreignKey="node_node_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
+            <child column="entry_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="wiktextract_parsed"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="jdoc" nullable="false" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
+         <primaryKey column="entry_id" sequenceNumberInPK="1"/>
+         <index name="wiktextract_pkey" unique="true">
+            <column ascending="true" name="entry_id"/>
+         </index>
+      </table>
+      <table name="wiktextract_parsed" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT entry_id,&#10;    (jdoc -&gt;&gt; 'word'::text) AS word,&#10;    (jdoc -&gt;&gt; 'lang_code'::text) AS lang_code,&#10;    ((jdoc -&gt;&gt; 'etymology_number'::text))::smallint AS etym_no,&#10;    (jdoc -&gt;&gt; 'pos'::text) AS pos,&#10;    (jsonb_path_query_first(jdoc, '$.&quot;forms&quot;[*]?(@.&quot;tags&quot;[0] == &quot;romanization&quot;).&quot;form&quot;'::jsonpath) #&gt;&gt; '{}'::text[]) AS translit,&#10;    (jdoc #&gt;&gt; ARRAY['senses'::text, '0'::text, 'glosses'::text, '0'::text]) AS gloss,&#10;    (jdoc #&gt;&gt; ARRAY['senses'::text, '0'::text, 'form_of'::text, '0'::text, 'word'::text]) AS form_of,&#10;    (jdoc -&gt;&gt; 'title'::text) AS title,&#10;    (jdoc -&gt;&gt; 'redirect'::text) AS redirect&#10;   FROM wiktextract;">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="entry_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="entry_id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="wiktextract"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="word" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="true" remarks="" size="2147483647" type="text" typeCode="12">
+            <parent column="lang_code" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" schema="public" table="lang"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="etym_no" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="pos" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="translit" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="gloss" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="form_of" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="title" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="redirect" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+   </tables>
+</database>

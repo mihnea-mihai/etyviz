@@ -169,6 +169,7 @@ graphs/showcase/*.gv
 storage/*
 !storage/test/
 
-schemaspy/
+!schemaspy/.gitkeep
+schemaspy/*
 
 data/wiktextract.jsonl
