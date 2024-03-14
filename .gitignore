@@ -173,3 +173,5 @@ storage/*
 schemaspy/*
 
 data/wiktextract.jsonl
+
+!docs/bower/admin-lte/dist
