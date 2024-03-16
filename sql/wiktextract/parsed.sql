@@ -1,17 +1,9 @@
-DROP TABLE IF EXISTS wiktextract;
-
-CREATE TABLE wiktextract (
-    entry_id    int     PRIMARY KEY,
-    jdoc        jsonb   NOT NULL
-);
-
-DROP VIEW IF EXISTS wiktextract_parsed;
-
 CREATE VIEW wiktextract_parsed AS
     SELECT
-        entry_id,
+        line_no,
         jdoc ->> 'word' AS word,
         jdoc ->> 'lang_code' AS lang_code,
+        jdoc ->> 'lang' AS lang_name,
         (jdoc ->> 'etymology_number')::smallint AS etym_no,
         jdoc ->> 'pos' AS pos,
         jsonb_path_query_first (

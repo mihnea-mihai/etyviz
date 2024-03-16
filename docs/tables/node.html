@@ -73,7 +73,20 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>node</h1><p><span id="recordNumber">9010719</span> rows</p><br />
+                    <h1>node</h1><p><span id="recordNumber">-1</span> rows</p><br />
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <i class="fa fa-file-text-o"></i>
+                            <h3 id="Description" class="box-title">Description</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div><!-- /.box-header -->
+                        <div class="box-body clearfix">
+                            <p>Holds all nodes possible in the etymology graph. Each node is a unique combination of word, lang_code, etym_no and pos</p>
+                        </div><!-- /.box-body -->
+                    </div>
                 </section>
                 <!-- Main content -->
                 <section class="content">
@@ -117,34 +130,24 @@
                                     <td>null</td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="edge.source_id references node.node_id via edge_source_id_fkey"><a href='edge.html'>edge</a><span class='relatedKey'>.source_id</span></td>
-                                                <td class="constraint detail">edge_source_id_fkey</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td title="edge.target_id references node.node_id via edge_target_id_fkey"><a href='edge.html'>edge</a><span class='relatedKey'>.target_id</span></td>
-                                                <td class="constraint detail">edge_target_id_fkey</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="node.node_id references wiktextract.entry_id via node_node_id_fkey"><a href='wiktextract.html'>wiktextract</a><span class='relatedKey'>.entry_id</span></td>
+                                                <td title="node.node_id references wiktextract.line_no via node_node_id_fkey"><a href='wiktextract.html'>wiktextract</a><span class='relatedKey'>.line_no</span></td>
                                                 <td class="constraint detail">node_node_id_fkey</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>ID of the entry. Originally the line number of the wiktextract dump.</p></td>
                                 </tr>
                                 <tr>
                                     <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="word">word</span></td>
-                                    <td>text</td>
-                                    <td>2147483647</td>
-                                    <td title='nullable'>√</td>
+                                    <td>varchar</td>
+                                    <td>256</td>
+                                    <td title=''></td>
                                     <td title=''></td>
                                     <td>null</td>
                                     <td>
@@ -155,13 +158,13 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Lemma of the entry.</p></td>
                                 </tr>
                                 <tr>
                                     <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="lang_code">lang_code</span></td>
-                                    <td>text</td>
-                                    <td>2147483647</td>
-                                    <td title='nullable'>√</td>
+                                    <td>varchar</td>
+                                    <td>16</td>
+                                    <td title=''></td>
                                     <td title=''></td>
                                     <td>null</td>
                                     <td>
@@ -177,7 +180,7 @@
                                             </tr>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Wiktionary language code of the entry. Is used to access more data on languages from the separate table.</p></td>
                                 </tr>
                                 <tr>
                                     <td class='indexedColumn' title='Indexed'><i class='fa fa-sitemap fa-rotate-120' style='padding-right: 5px;'></i><span id="etym_no">etym_no</span></td>
@@ -194,12 +197,12 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Etymology number of the entry. Used in the case of homonyms to help distinguish between forms.</p></td>
                                 </tr>
                                 <tr>
                                     <td><span id="pos">pos</span></td>
-                                    <td>text</td>
-                                    <td>2147483647</td>
+                                    <td>varchar</td>
+                                    <td>16</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -211,12 +214,12 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Part of speech of the entry.</p></td>
                                 </tr>
                                 <tr>
                                     <td><span id="translit">translit</span></td>
-                                    <td>text</td>
-                                    <td>2147483647</td>
+                                    <td>varchar</td>
+                                    <td>256</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -228,12 +231,12 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Transliteration of the entry in Latin alphabet.</p></td>
                                 </tr>
                                 <tr>
                                     <td><span id="gloss">gloss</span></td>
-                                    <td>text</td>
-                                    <td>2147483647</td>
+                                    <td>varchar</td>
+                                    <td>2048</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -245,7 +248,7 @@
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
-                                    <td></td>
+                                    <td><p>Translation of the entry in English language.</p></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -284,12 +287,6 @@
                                     <td>node_id</td>
                                 </tr>
                                 <tr>
-                                    <td title='Indexed'>fki_node_node_id_fkey</td>
-                                    <td>Performance</td>
-                                    <td><span title='Ascending'>Asc</span></td>
-                                    <td>node_id</td>
-                                </tr>
-                                <tr>
                                     <td class='uniqueKey' title='Unique Key'><i class='icon ion-key iconkey'></i> node_lang_code_word_etym_no_idx</td>
                                     <td>Must be unique</td>
                                     <td><span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span>/<span title='Ascending'>Asc</span></td>
@@ -319,29 +316,26 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="613,15,747,167">
-<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="245,41,569,316">
-<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
-<area shape="rect" id="node4" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
+<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="245,41,503,316">
+<area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
+<area shape="rect" id="node3" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/node.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="613,15,747,167">
-<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="245,41,569,316">
-<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
-<area shape="rect" id="node4" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
+<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="245,41,503,316">
+<area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
+<area shape="rect" id="node3" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
 </map>
                                         <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/node.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="613,5,747,157">
-<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="245,32,569,307">
-<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="21,284,185,401">
-<area shape="rect" id="node4" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,73,201,191">
-<area shape="rect" id="node5" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="281,324,534,388">
+<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="245,5,503,280">
+<area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="21,257,185,375">
+<area shape="rect" id="node3" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,47,201,164">
+<area shape="rect" id="node4" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="247,297,501,361">
 </map>
                                         <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/node.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>

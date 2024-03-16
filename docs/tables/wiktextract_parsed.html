@@ -109,7 +109,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="entry_id">entry_id</span></td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="line_no">line_no</span></td>
                                     <td>int4</td>
                                     <td>10</td>
                                     <td title='nullable'>√</td>
@@ -122,7 +122,7 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="wiktextract_parsed.entry_id&#39;s name implies that it&#39;s a child of wiktextract.entry_id, but it doesn&#39;t reference that column."><a href='wiktextract.html'>wiktextract</a><span class='relatedKey'>.entry_id</span></td>
+                                                <td title="wiktextract_parsed.line_no&#39;s name implies that it&#39;s a child of wiktextract.line_no, but it doesn&#39;t reference that column."><a href='wiktextract.html'>wiktextract</a><span class='relatedKey'>.line_no</span></td>
                                                 <td class="constraint detail">Implied Constraint</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
@@ -165,6 +165,23 @@
                                                 <td class="constraint detail">Implied Constraint</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="lang_name">lang_name</span></td>
+                                    <td>text</td>
+                                    <td>2147483647</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
                                     </td>
                                     <td></td>
@@ -312,24 +329,24 @@
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="5,5,373,344">
+<area shape="rect" id="node1" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="5,5,373,373">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/wiktextract_parsed.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="245,41,613,380">
-<area shape="rect" id="node2" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
-<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
+<area shape="rect" id="node1" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="245,41,613,409">
+<area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="21,140,185,257">
+<area shape="rect" id="node3" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,5,201,123">
 </map>
                                         <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/wiktextract_parsed.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                     <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
-<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="323,5,535,93">
+<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="365,5,493,93">
 <area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="21,155,185,272">
 <area shape="rect" id="node3" href="wiktextract.html" target="_top" title="wiktextract" alt="" coords="5,12,201,129">
-<area shape="rect" id="node4" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="245,111,613,449">
+<area shape="rect" id="node4" href="wiktextract_parsed.html" target="_top" title="wiktextract_parsed" alt="" coords="245,111,613,479">
 </map>
                                         <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/wiktextract_parsed.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
@@ -347,7 +364,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT entry_id,&#10;    (jdoc -&gt;&gt; &#39;word&#39;::text) AS word,&#10;    (jdoc -&gt;&gt; &#39;lang_code&#39;::text) AS lang_code,&#10;    ((jdoc -&gt;&gt; &#39;etymology_number&#39;::text))::smallint AS etym_no,&#10;    (jdoc -&gt;&gt; &#39;pos&#39;::text) AS pos,&#10;    (jsonb_path_query_first(jdoc, &#39;$.&quot;forms&quot;[*]?(@.&quot;tags&quot;[0] &#61;&#61; &quot;romanization&quot;).&quot;form&quot;&#39;::jsonpath) #&gt;&gt; &#39;{}&#39;::text[]) AS translit,&#10;    (jdoc #&gt;&gt; ARRAY[&#39;senses&#39;::text, &#39;0&#39;::text, &#39;glosses&#39;::text, &#39;0&#39;::text]) AS gloss,&#10;    (jdoc #&gt;&gt; ARRAY[&#39;senses&#39;::text, &#39;0&#39;::text, &#39;form_of&#39;::text, &#39;0&#39;::text, &#39;word&#39;::text]) AS form_of,&#10;    (jdoc -&gt;&gt; &#39;title&#39;::text) AS title,&#10;    (jdoc -&gt;&gt; &#39;redirect&#39;::text) AS redirect&#10;   FROM wiktextract;</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT line_no,&#10;    (jdoc -&gt;&gt; &#39;word&#39;::text) AS word,&#10;    (jdoc -&gt;&gt; &#39;lang_code&#39;::text) AS lang_code,&#10;    (jdoc -&gt;&gt; &#39;lang&#39;::text) AS lang_name,&#10;    ((jdoc -&gt;&gt; &#39;etymology_number&#39;::text))::smallint AS etym_no,&#10;    (jdoc -&gt;&gt; &#39;pos&#39;::text) AS pos,&#10;    (jsonb_path_query_first(jdoc, &#39;$.&quot;forms&quot;[*]?(@.&quot;tags&quot;[0] &#61;&#61; &quot;romanization&quot;).&quot;form&quot;&#39;::jsonpath) #&gt;&gt; &#39;{}&#39;::text[]) AS translit,&#10;    (jdoc #&gt;&gt; ARRAY[&#39;senses&#39;::text, &#39;0&#39;::text, &#39;glosses&#39;::text, &#39;0&#39;::text]) AS gloss,&#10;    (jdoc #&gt;&gt; ARRAY[&#39;senses&#39;::text, &#39;0&#39;::text, &#39;form_of&#39;::text, &#39;0&#39;::text, &#39;word&#39;::text]) AS form_of,&#10;    (jdoc -&gt;&gt; &#39;title&#39;::text) AS title,&#10;    (jdoc -&gt;&gt; &#39;redirect&#39;::text) AS redirect&#10;   FROM wiktextract;</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">

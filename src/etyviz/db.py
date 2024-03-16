@@ -24,7 +24,7 @@ def file_to_db() -> None:
     """Migrate the information in the dump file in the DB.
     Each row becomes an entry in the `wiktextract` table.
     """
-    execute_file("sql/wiktextract.sql")
+    # execute_file("sql/wiktextract.sql")
 
     with open("data/wiktextract.jsonl", encoding="utf-8", mode="r") as file:
         i = 1
@@ -47,7 +47,5 @@ def wiki_to_node() -> None:
 
 
 if __name__ == "__main__":
-    # file_to_db()
+    file_to_db()
     # execute_file("sql/lang.sql")
-    a= execute_file("sql/lang_query.sql", ["rom"])
-    print(a)
