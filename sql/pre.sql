@@ -7,7 +7,7 @@ used to populate the database.
 A Python script populates `raw_dump` from all the lines in the
 wiktextract dump file.
 
-`dump` view is created from [raw_dump](/tables/raw_dump)
+`dump` view is created from [raw_dump](/tables/raw_dump.html)
 reading all relevant JSON paths.
 
 [templates](/tables/templates) view is created from [dump](/tables/dump)
