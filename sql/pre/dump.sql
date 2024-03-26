@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW wiktextract_parsed AS
+CREATE OR REPLACE VIEW pre.dump AS
     SELECT
         line_no,
         jdoc ->> 'word' AS word,
@@ -14,7 +14,7 @@ CREATE OR REPLACE VIEW wiktextract_parsed AS
         jdoc ->> 'title' AS title,
         jdoc ->> 'redirect' AS redirect,
         jdoc -> 'etymology_templates' AS etymology_templates
-    FROM wiktextract;
+    FROM pre.raw_dump;
 
-COMMENT ON VIEW wiktextract_parsed IS
-    'Information extracted by parsing the JSON content.';
+COMMENT ON VIEW pre.dump IS
+'1 - Derived from `raw_dump` by parsing the relevant JSON paths.';

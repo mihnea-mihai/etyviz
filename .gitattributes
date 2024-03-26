@@ -1,2 +1,1 @@
 *.sql linguist-detectable linguist-language=sql
-docs/** linguist-generated
