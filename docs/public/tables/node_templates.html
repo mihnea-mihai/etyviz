@@ -335,7 +335,7 @@
                             </div>
                         </div>
                         <div class="box-body">
-                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT node_friendly.node_id,&#10;    node_friendly.word,&#10;    node_friendly.lang_code,&#10;    node_friendly.lang_name,&#10;    node_friendly.etym_no,&#10;    node_friendly.pos,&#10;    node_friendly.translit,&#10;    node_friendly.gloss,&#10;    template_args.line_no,&#10;    template_args.template_name,&#10;    template_args.args&#10;   FROM (node_friendly&#10;     JOIN template_args ON ((node_friendly.node_id &#61; template_args.line_no)));</textarea>
+                            <textarea id="sql-script-codemirror" name="sql-script-codemirror" rows="" style="display: none;">SELECT node_friendly.node_id,&#10;    node_friendly.word,&#10;    node_friendly.lang_code,&#10;    node_friendly.lang_name,&#10;    node_friendly.etym_no,&#10;    node_friendly.pos,&#10;    node_friendly.translit,&#10;    node_friendly.gloss,&#10;    templates.line_no,&#10;    templates.template_name,&#10;    templates.args&#10;   FROM (ui.node_friendly&#10;     JOIN pre.templates ON ((node_friendly.node_id &#61; templates.line_no)));</textarea>
                             <div style="padding-top: 5px;"><hr></div>
                             <div class="box box-solid">
                                 <div class="box-header with-border">
@@ -345,8 +345,6 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <ul class="list-unstyled">
-                                        <li><a href="node_friendly.html">node_friendly</a></li>
-                                        <li><a href="template_args.html">template_args</a></li>
                                     </ul>
                                 </div><!-- /.box-body -->
                             </div>

@@ -102,6 +102,42 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td><a href="routines/lang_insert___f317e8ab.html">lang_insert()</a></td>
+                                        <td>PROCEDURE</td>
+                                        <td>sql</td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>INVOKER</td>
+                                        <td><p>Populates <code>lang_code</code> and <code>lang_name</code> columns in the <code>lang</code> table. If multiple language names are found for the same language code, the most used is saved in the table.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="routines/node_insert___82532317.html">node_insert()</a></td>
+                                        <td>PROCEDURE</td>
+                                        <td>sql</td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>INVOKER</td>
+                                        <td><p>Populates the <code>node</code> table with information extracted from the dump.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="routines/edge_insert_simple___8ff3aa77.html">edge_insert_simple()</a></td>
+                                        <td>PROCEDURE</td>
+                                        <td>sql</td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>INVOKER</td>
+                                        <td><p>Populates the <code>edge</code> table with information extracted from <code>pre.raw_links</code>. Only takes into account entries not needing disambiguation.</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="routines/lang_count_insert___1b43a11b.html">lang_count_insert()</a></td>
+                                        <td>PROCEDURE</td>
+                                        <td>sql</td>
+                                        <td>false</td>
+                                        <td></td>
+                                        <td>INVOKER</td>
+                                        <td><p>Populates <code>entry_count</code> column in the <code>lang</code> table, grouping by <code>lang_code</code>.</p></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

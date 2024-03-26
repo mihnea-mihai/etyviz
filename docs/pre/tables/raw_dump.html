@@ -131,8 +131,23 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="node.node_id references raw_dump.line_no via node_node_id_fkey"><a href='../../public/tables/node.html'>node</a><span class='relatedKey'>.node_id</span></td>
+                                                <td title="node.node_id references raw_dump.line_no via node_node_id_fkey"><a href='../../core/tables/node.html'>node</a><span class='relatedKey'>.node_id</span></td>
                                                 <td class="constraint detail">node_node_id_fkey</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="dump.line_no&#39;s name implies that it&#39;s a child of raw_dump.line_no, but it doesn&#39;t reference that column."><a href='dump.html'>dump</a><span class='relatedKey'>.line_no</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="raw_links.line_no&#39;s name implies that it&#39;s a child of raw_dump.line_no, but it doesn&#39;t reference that column."><a href='raw_links.html'>raw_links</a><span class='relatedKey'>.line_no</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="templates.line_no&#39;s name implies that it&#39;s a child of raw_dump.line_no, but it doesn&#39;t reference that column."><a href='templates.html'>templates</a><span class='relatedKey'>.line_no</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -214,14 +229,25 @@
                                 <h5>Close relationships within degrees of separation</h5>
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
+                                    <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
                                         <map id="oneDegreeRelationshipsDiagram" name="oneDegreeRelationshipsDiagram">
-<area shape="rect" id="node1" href="../../public/tables/node.html" target="_top" title="public.node" alt="" coords="381,8,571,125">
+<area shape="rect" id="node1" href="../../core/tables/node.html" target="_top" title="core.node" alt="" coords="381,8,555,125">
 <area shape="rect" id="node2" href="raw_dump.html" target="_top" title="raw_dump" alt="" coords="5,5,337,133">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/raw_dump.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
+<area shape="rect" id="node1" href="../../core/tables/node.html" target="_top" title="core.node" alt="" coords="416,5,589,123">
+<area shape="rect" id="node2" href="raw_dump.html" target="_top" title="raw_dump" alt="" coords="5,193,337,321">
+<area shape="rect" id="node3" href="dump.html" target="_top" title="dump" alt="" coords="381,140,624,233">
+<area shape="rect" id="node4" href="raw_links.html" target="_top" title="raw_links" alt="" coords="409,251,597,344">
+<area shape="rect" id="node5" href="templates.html" target="_top" title="templates" alt="" coords="409,361,597,455">
+</map>
+                                        <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/raw_dump.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,1 @@
-lang
-node
-edge
 link_data

@@ -49,7 +49,7 @@
                 <section class="content-header">
                     <div class="callout callout-info">
                         <h4>SchemaSpy Analysis of etyviz</h4>
-                        <p>Generated on Sun Mar 24 00:32 EET 2024</p>
+                        <p>Generated on Wed Mar 27 01:11 EET 2024</p>
                     </div>
                 </section>
                 <!-- Main content -->
@@ -65,7 +65,7 @@
                     </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">2 Schemas</h3>
+                            <h3 class="box-title">3 Schemas</h3>
                             <span class="label label-primary pull-right"><i class="fa fa-database fa-2x"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
@@ -85,20 +85,15 @@
                                 <tbody>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="core/index.html">core</a></td>
-                                        <td class="comment detail" style="display: table-cell;"><p>This schema contains all the necessary elements used to populate the database.<br />
-A Python script populates <code>raw_dump</code> from all the lines in the wiktextract dump file.<br />
-<code>dump</code> view is created from <a href="/docs/tables/raw_dump">raw_dump</a> reading all relevant JSON paths.</p>
-<p>The data flow is roughly:</p></td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
                                     </tr>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="pre/index.html">pre</a></td>
-                                        <td class="comment detail" style="display: table-cell;"><p>This schema contains all the necessary elements used to populate the database.</p>
-<p>A Python script populates <code>raw_dump</code> from all the lines in the wiktextract dump file.</p>
-<p><code>dump</code> view is created from <a href="/tables/raw_dump">raw_dump</a> reading all relevant JSON paths.</p>
-<p><a href="/tables/templates">templates</a> view is created from <a href="/tables/dump">dump</a> view and has one entry per etymology template of all rows in <code>dump</code>.</p>
-<p><code>arguments</code> is derived from <code>templates</code> and has one row for each argument of each etymology template.</p>
-<p><code>raw_links</code> uses the data in <code>arguments</code> and the logic in <code>link_types</code> to extract all candidate links from <code>line_no</code>s to word and language combinations.</p>
-<p>The data flow is roughly:</p></td>
+                                        <td class="comment detail" style="display: table-cell;"><p>This schema contains all the necessary elements used to populate the database.</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="ui/index.html">ui</a></td>
+                                        <td class="comment detail" style="display: table-cell;"></td>
                                     </tr>
                                 </tbody>
                             </table>

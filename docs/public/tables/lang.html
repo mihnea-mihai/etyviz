@@ -135,6 +135,16 @@
                                                 <td class="constraint detail">node_lang_code_fkey</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
+                                            <tr>
+                                                <td title="node_friendly.lang_code&#39;s name implies that it&#39;s a child of lang.lang_code, but it doesn&#39;t reference that column."><a href='node_friendly.html'>node_friendly</a><span class='relatedKey'>.lang_code</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="node_templates.lang_code&#39;s name implies that it&#39;s a child of lang.lang_code, but it doesn&#39;t reference that column."><a href='node_templates.html'>node_templates</a><span class='relatedKey'>.lang_code</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td>
@@ -237,6 +247,9 @@
                                 <h5>Close relationships within degrees of separation</h5>
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
+                                    <li class=""><a href="#twodegreesDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two degrees</a></li>
+                                    <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
+                                    <li class=""><a href="#twoimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">Two implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
@@ -245,6 +258,35 @@
 <area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="5,61,308,219">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/lang.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="twodegreesDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="twoDegreesRelationshipsDiagram" name="twoDegreesRelationshipsDiagram">
+<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="608,32,736,120">
+<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="352,29,564,235">
+<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="5,111,308,268">
+<area shape="rect" id="node4" href="../../pre/tables/raw_dump.html" target="_top" title="pre.raw_dump" alt="" coords="51,5,263,93">
+</map>
+                                        <a name='diagram'><img id="twodegreesDegreeImg" src="../diagrams/tables/lang.2degrees.png" usemap="#twoDegreesRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
+<area shape="rect" id="node1" href="node.html" target="_top" title="node" alt="" coords="352,57,564,263">
+<area shape="rect" id="node2" href="lang.html" target="_top" title="lang" alt="" coords="5,113,308,271">
+<area shape="rect" id="node3" href="node_friendly.html" target="_top" title="node_friendly" alt="" coords="619,5,821,128">
+<area shape="rect" id="node4" href="node_templates.html" target="_top" title="node_templates" alt="" coords="608,152,832,275">
+</map>
+                                        <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/lang.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="twoimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="twoDegreesRelationshipsDiagramImplied" name="twoDegreesRelationshipsDiagramImplied">
+<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="656,5,784,93">
+<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="352,24,564,112">
+<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="5,115,308,272">
+<area shape="rect" id="node4" href="../../pre/tables/raw_dump.html" target="_top" title="pre.raw_dump" alt="" coords="51,9,263,97">
+<area shape="rect" id="node5" href="node_friendly.html" target="_top" title="node_friendly" alt="" coords="619,111,821,175">
+<area shape="rect" id="node6" href="node_templates.html" target="_top" title="node_templates" alt="" coords="608,192,832,256">
+</map>
+                                        <a name='diagram'><img id="twoimpliedDegreeImg" src="../diagrams/tables/lang.implied2degrees.png" usemap="#twoDegreesRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                 </div>
                             </div>

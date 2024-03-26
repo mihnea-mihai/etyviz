@@ -1,31 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database name="etyviz" schema="public" type="PostgreSQL - 16.2 (Ubuntu 16.2-1.pgdg22.04+1)">
    <tables>
-      <table name="edge" remarks="Holds all direct links between words (nodes)." schema="public" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="source_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
-            <parent column="node_id" foreignKey="edge_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="link_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="target_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
-            <parent column="node_id" foreignKey="edge_target_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
-         </column>
-         <index name="edge_target_id_link_type_source_id_idx" unique="true">
-            <column ascending="true" name="target_id"/>
-            <column ascending="true" name="link_type"/>
-            <column ascending="true" name="source_id"/>
-         </index>
-      </table>
-      <table name="lang" numRows="4492" remarks="Holds information about languages." schema="public" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="lang_code" nullable="false" remarks="" size="2147483647" type="text" typeCode="12">
-            <child column="lang_code" foreignKey="node_lang_code_fkey" implied="false" onDeleteCascade="false" schema="public" table="node"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="lang_name" nullable="false" remarks="Friendly language name. If more names are mapped to the same code in the examples, the most used one is saved." size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="0" digits="0" id="2" name="entry_count" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <primaryKey column="lang_code" sequenceNumberInPK="1"/>
-         <index name="lang_pkey" unique="true">
-            <column ascending="true" name="lang_code"/>
-         </index>
-         <index name="lang_lower_idx" unique="false"/>
-      </table>
       <table name="link_data" remarks="" schema="public" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="link_type" nullable="false" remarks="" size="128" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="lang_idx" nullable="false" remarks="" size="16" type="varchar" typeCode="12"/>
@@ -35,41 +9,7 @@
             <column ascending="true" name="link_type"/>
          </index>
       </table>
-      <table name="node" numRows="9397383" remarks="Holds all nodes possible in the etymology graph.&#10;    Each node is a unique combination of word, lang_code, etym_no and pos" schema="public" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="node_id" nullable="false" remarks="ID of the entry. Originally the line number of the wiktextract dump." size="10" type="int4" typeCode="4">
-            <child column="source_id" foreignKey="edge_source_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="edge"/>
-            <child column="target_id" foreignKey="edge_target_id_fkey" implied="false" onDeleteCascade="false" schema="public" table="edge"/>
-            <parent column="line_no" foreignKey="node_node_id_fkey" implied="false" onDeleteCascade="false" schema="pre" table="raw_dump"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="word" nullable="false" remarks="Lemma of the entry." size="256" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="false" remarks="Wiktionary language code of the entry.&#10;    Is used to access more data on languages from the separate table." size="16" type="varchar" typeCode="12">
-            <parent column="lang_code" foreignKey="node_lang_code_fkey" implied="false" onDeleteCascade="false" schema="public" table="lang"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="etym_no" nullable="true" remarks="Etymology number of the entry.&#10;    Used in the case of homonyms to help distinguish between forms." size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="pos" nullable="true" remarks="Part of speech of the entry." size="16" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="translit" nullable="true" remarks="Transliteration of the entry in Latin alphabet." size="256" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="gloss" nullable="true" remarks="Translation of the entry in English language.&#10;    This is the first meaning from the list of meanings." size="2048" type="varchar" typeCode="12"/>
-         <primaryKey column="node_id" sequenceNumberInPK="1"/>
-         <index name="node_pkey" unique="true">
-            <column ascending="true" name="node_id"/>
-         </index>
-         <index name="node_lang_code_word_etym_no_idx" unique="true">
-            <column ascending="true" name="lang_code"/>
-            <column ascending="true" name="word"/>
-            <column ascending="true" name="etym_no"/>
-         </index>
-      </table>
-      <table name="node_friendly" numRows="0" remarks="View for easier exploring of `node`, by truncating `translit` and `gloss`&#10;    columns and also bringing `lang_name` from `lang` table." schema="public" type="VIEW" viewSql=" SELECT node.node_id,&#10;    node.word,&#10;    lang_code,&#10;    lang.lang_name,&#10;    node.etym_no,&#10;    node.pos,&#10;    SUBSTRING(node.translit FROM 1 FOR 50) AS translit,&#10;    SUBSTRING(node.gloss FROM 1 FOR 50) AS gloss&#10;   FROM (node&#10;     JOIN lang USING (lang_code));">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="node_id" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="word" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="true" remarks="" size="2147483647" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="lang_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="etym_no" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="pos" nullable="true" remarks="" size="16" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="translit" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="gloss" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-      </table>
-      <table name="node_templates" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT node_friendly.node_id,&#10;    node_friendly.word,&#10;    node_friendly.lang_code,&#10;    node_friendly.lang_name,&#10;    node_friendly.etym_no,&#10;    node_friendly.pos,&#10;    node_friendly.translit,&#10;    node_friendly.gloss,&#10;    template_args.line_no,&#10;    template_args.template_name,&#10;    template_args.args&#10;   FROM (node_friendly&#10;     JOIN template_args ON ((node_friendly.node_id = template_args.line_no)));">
+      <table name="node_templates" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" SELECT node_friendly.node_id,&#10;    node_friendly.word,&#10;    node_friendly.lang_code,&#10;    node_friendly.lang_name,&#10;    node_friendly.etym_no,&#10;    node_friendly.pos,&#10;    node_friendly.translit,&#10;    node_friendly.gloss,&#10;    templates.line_no,&#10;    templates.template_name,&#10;    templates.args&#10;   FROM (ui.node_friendly&#10;     JOIN pre.templates ON ((node_friendly.node_id = templates.line_no)));">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="node_id" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="word" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="lang_code" nullable="true" remarks="" size="2147483647" type="varchar" typeCode="12"/>
@@ -82,80 +22,5 @@
          <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="template_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="args" nullable="true" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
       </table>
-      <table name="raw_templates" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" WITH raw_template_split AS (&#10;         SELECT dump.line_no,&#10;            jsonb_array_elements(dump.etymology_templates) AS templates&#10;           FROM pre.dump&#10;        ), raw_args AS (&#10;         SELECT raw_template_split.line_no,&#10;            (raw_template_split.templates -&gt;&gt; 'name'::text) AS template_name,&#10;            (raw_template_split.templates -&gt; 'args'::text) AS args&#10;           FROM raw_template_split&#10;        ), all_args AS (&#10;         SELECT raw_args.line_no,&#10;            raw_args.template_name,&#10;            (jsonb_each_text(raw_args.args)).key AS arg,&#10;            (jsonb_each_text(raw_args.args)).value AS val&#10;           FROM raw_args&#10;        )&#10; SELECT line_no,&#10;    template_name,&#10;    arg,&#10;    val&#10;   FROM all_args&#10;  WHERE (val &lt;&gt; ''::text);">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="line_no" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="template_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="arg" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="val" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-      </table>
-      <table name="template_args" numRows="0" remarks="" schema="public" type="VIEW" viewSql=" WITH raw_templates AS (&#10;         SELECT raw_dump.line_no,&#10;            jsonb_array_elements((raw_dump.jdoc -&gt; 'etymology_templates'::text)) AS jdoc&#10;           FROM pre.raw_dump&#10;        )&#10; SELECT line_no,&#10;    (jdoc -&gt;&gt; 'name'::text) AS template_name,&#10;    (jdoc -&gt; 'args'::text) AS args&#10;   FROM raw_templates;">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="line_no" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="template_name" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="args" nullable="true" remarks="" size="2147483647" type="jsonb" typeCode="1111"/>
-      </table>
    </tables>
-   <routines>
-      <routine dataAccess="MODIFIES" deterministic="false" name="lang_entry_counts()" securityType="INVOKER" type="PROCEDURE">
-         <comment><![CDATA[Populates `entry_count` column in the `lang` table,
-    grouping by `lang_code`.]]></comment>
-         <definition language="sql"><![CDATA[WITH lang_counts AS (
-    SELECT count(*), lang_code
-    FROM wiktextract_parsed
-    WHERE lang_code IS NOT NULL
-    GROUP BY lang_code
-)
-UPDATE lang
-SET entry_count = count
-FROM lang_counts
-WHERE lang.lang_code = lang_counts.lang_code;]]></definition>
-         <parameters>
-            <parameter mode="IN"/>
-         </parameters>
-      </routine>
-      <routine dataAccess="MODIFIES" deterministic="false" name="lang_get_by_name(qlang text)" returnType="SETOF text" securityType="INVOKER" type="FUNCTION">
-         <comment><![CDATA[Returns the first 10 languages matching the wildcard search.]]></comment>
-         <definition language="sql"><![CDATA[SELECT lang_name
-FROM lang
-WHERE lower(lang_name) LIKE '%' || qlang || '%'
-ORDER BY entry_count DESC
-LIMIT 10;]]></definition>
-         <parameters>
-            <parameter mode="IN" name="qlang" type="text"/>
-         </parameters>
-      </routine>
-      <routine dataAccess="MODIFIES" deterministic="false" name="lang_insert()" securityType="INVOKER" type="PROCEDURE">
-         <comment><![CDATA[Populates `lang_code` and `lang_name` columns in the `lang` table.
-    If multiple language names are found for the same language code,
-    the most used is saved in the table.]]></comment>
-         <definition language="sql"><![CDATA[WITH lang_stats AS (
-    SELECT lang_code, lang_name, count(*)
-    FROM wiktextract_parsed
-    WHERE lang_code IS NOT NULL
-    GROUP BY lang_code, lang_name
-    ORDER BY count(*) DESC
-)
-INSERT INTO lang (
-    lang_code, lang_name
-)
-SELECT lang_code, lang_name
-FROM lang_stats
-ON CONFLICT DO NOTHING;]]></definition>
-         <parameters>
-            <parameter mode="IN"/>
-         </parameters>
-      </routine>
-      <routine dataAccess="MODIFIES" deterministic="false" name="node_insert()" securityType="INVOKER" type="PROCEDURE">
-         <comment><![CDATA[Populates the `node` table with information extracted from the dump.]]></comment>
-         <definition language="sql"><![CDATA[INSERT INTO node (
-    node_id, word, lang_code, etym_no, pos, translit, gloss
-)
-SELECT line_no, word, lang_code, etym_no, pos, translit, gloss
-FROM wiktextract_parsed
-WHERE word IS NOT NULL
-ON CONFLICT DO NOTHING;]]></definition>
-         <parameters>
-            <parameter mode="IN"/>
-         </parameters>
-      </routine>
-   </routines>
 </database>

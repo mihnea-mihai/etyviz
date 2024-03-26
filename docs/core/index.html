@@ -78,7 +78,7 @@
                         <div class="col-md-12">
                             <div class="callout callout-info">
                                 <h4>SchemaSpy Analysis of etyviz.core</h4>
-                                <p>Generated on Sun Mar 24 00:32 EET 2024</p>
+                                <p>Generated on Wed Mar 27 01:11 EET 2024</p>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                                 <span class="info-box-icon bg-aqua"><i class="fa fa-table"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">TABLES</span>
-                                    <span class="info-box-number">0</span>
+                                    <span class="info-box-number">4</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -118,7 +118,7 @@
                                 <span class="info-box-icon bg-green"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">COLUMNS</span>
-                                    <span class="info-box-number">0</span>
+                                    <span class="info-box-number">16</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -130,7 +130,7 @@
                                 <span class="info-box-icon bg-yellow"><i class="ion ion-key"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Constraints</span>
-                                    <span class="info-box-number">0</span>
+                                    <span class="info-box-number">5</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -173,18 +173,6 @@
                     </div>
                     <div class="box box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Schema core</h3>
-                            <span class="label label-primary pull-right"><i class="fa fa-cog fa-2x"></i></span>
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <p> <p>This schema contains all the necessary elements used to populate the database.<br />
-A Python script populates <code>raw_dump</code> from all the lines in the wiktextract dump file.<br />
-<code>dump</code> view is created from <a href="/docs/tables/raw_dump">raw_dump</a> reading all relevant JSON paths.</p>
-<p>The data flow is roughly:</p> </p>
-                        </div><!-- /.box-body -->
-                    </div>
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
                             <h3 class="box-title">Tables</h3>
                             <span class="label label-primary pull-right"><i class="fa fa-database fa-2x"></i></span>
                         </div><!-- /.box-header -->
@@ -208,6 +196,42 @@ A Python script populates <code>raw_dump</code> from all the lines in the wiktex
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/node.html">node</a></td>
+                                        <td class="detail" align="right">2</td>
+                                        <td class="detail" align="right">2</td>
+                                        <td class="detail" align="right">7</td>
+                                        <td class="detail" align="right">9397383</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Holds all nodes possible in the etymology graph. Each node is a unique combination of word, lang_code, etym_no and pos</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/edge.html">edge</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">3293827</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Holds all direct links between words (nodes).</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/lang.html">lang</a></td>
+                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">4492</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Holds information about languages.</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/link_data.html">link_data</a></td>
+                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">-1</td>
+                                        <td class="detail" align="right">Table</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Holds data for each link type.</p></td>
+                                    </tr>
                             </table>
                         </div>
                     </div><!-- /.box-body -->

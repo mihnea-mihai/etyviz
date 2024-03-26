@@ -140,6 +140,16 @@
                                                 <td class="constraint detail">edge_target_id_fkey</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
+                                            <tr>
+                                                <td title="node_friendly.node_id&#39;s name implies that it&#39;s a child of node.node_id, but it doesn&#39;t reference that column."><a href='node_friendly.html'>node_friendly</a><span class='relatedKey'>.node_id</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td title="node_templates.node_id&#39;s name implies that it&#39;s a child of node.node_id, but it doesn&#39;t reference that column."><a href='node_templates.html'>node_templates</a><span class='relatedKey'>.node_id</span></td>
+                                                <td class="constraint detail">Implied Constraint</td>
+                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
+                                            </tr>
                                         </table>
                                     </td>
                                     <td>
@@ -320,6 +330,7 @@
                                 <h5>Close relationships within degrees of separation</h5>
                                 <ul class="nav nav-tabs pull-left ui-sortable-handle">
                                     <li class="active"><a href="#oneDegreeImg-chart" data-toggle="tab" aria-expanded="true">One</a></li>
+                                    <li class=""><a href="#oneimpliedDegreeImg-chart" data-toggle="tab" aria-expanded="true">One implied</a></li>
                                 </ul>
                                 <div class="tab-content no-padding">
                                     <div class="chart tab-pane active" id="oneDegreeImg-chart" style="position: relative; overflow-x:auto;">
@@ -330,6 +341,17 @@
 <area shape="rect" id="node4" href="../../pre/tables/raw_dump.html" target="_top" title="pre.raw_dump" alt="" coords="5,13,217,101">
 </map>
                                         <a name='diagram'><img id="oneDegreeImg" src="../diagrams/tables/node.1degree.png" usemap="#oneDegreeRelationshipsDiagram" class="diagram" border="0" align="left"></a>
+                                    </div>
+                                    <div class="chart tab-pane " id="oneimpliedDegreeImg-chart" style="position: relative; overflow-x:auto;">
+                                        <map id="oneDegreeRelationshipsDiagramImplied" name="oneDegreeRelationshipsDiagramImplied">
+<area shape="rect" id="node1" href="edge.html" target="_top" title="edge" alt="" coords="647,5,780,157">
+<area shape="rect" id="node2" href="node.html" target="_top" title="node" alt="" coords="261,60,557,335">
+<area shape="rect" id="node3" href="lang.html" target="_top" title="lang" alt="" coords="29,312,193,429">
+<area shape="rect" id="node4" href="../../pre/tables/raw_dump.html" target="_top" title="pre.raw_dump" alt="" coords="5,68,217,156">
+<area shape="rect" id="node5" href="node_friendly.html" target="_top" title="node_friendly" alt="" coords="612,317,815,440">
+<area shape="rect" id="node6" href="node_templates.html" target="_top" title="node_templates" alt="" coords="601,175,825,297">
+</map>
+                                        <a name='diagram'><img id="oneimpliedDegreeImg" src="../diagrams/tables/node.implied1degrees.png" usemap="#oneDegreeRelationshipsDiagramImplied" class="diagram" border="0" align="left"></a>
                                     </div>
                                 </div>
                             </div>

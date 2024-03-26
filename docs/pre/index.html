@@ -78,7 +78,7 @@
                         <div class="col-md-12">
                             <div class="callout callout-info">
                                 <h4>SchemaSpy Analysis of etyviz.pre</h4>
-                                <p>Generated on Sun Mar 24 00:32 EET 2024</p>
+                                <p>Generated on Wed Mar 27 01:11 EET 2024</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +106,7 @@
                                 <span class="info-box-icon bg-teal"><i class="fa fa-table"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">VIEWS</span>
-                                    <span class="info-box-number">1</span>
+                                    <span class="info-box-number">3</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -118,7 +118,7 @@
                                 <span class="info-box-icon bg-green"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">COLUMNS</span>
-                                    <span class="info-box-number">14</span>
+                                    <span class="info-box-number">21</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -154,7 +154,7 @@
                                 <span class="info-box-icon bg-navy"><i class="fa fa-file-code-o" aria-hidden="true"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Routines</span>
-                                    <span class="info-box-number">0</span>
+                                    <span class="info-box-number">4</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
@@ -177,13 +177,7 @@
                             <span class="label label-primary pull-right"><i class="fa fa-cog fa-2x"></i></span>
                         </div><!-- /.box-header -->
                         <div class="box-body">
-                            <p> <p>This schema contains all the necessary elements used to populate the database.</p>
-<p>A Python script populates <code>raw_dump</code> from all the lines in the wiktextract dump file.</p>
-<p><code>dump</code> view is created from <a href="/tables/raw_dump">raw_dump</a> reading all relevant JSON paths.</p>
-<p><a href="/tables/templates">templates</a> view is created from <a href="/tables/dump">dump</a> view and has one entry per etymology template of all rows in <code>dump</code>.</p>
-<p><code>arguments</code> is derived from <code>templates</code> and has one row for each argument of each etymology template.</p>
-<p><code>raw_links</code> uses the data in <code>arguments</code> and the logic in <code>link_types</code> to extract all candidate links from <code>line_no</code>s to word and language combinations.</p>
-<p>The data flow is roughly:</p> </p>
+                            <p> <p>This schema contains all the necessary elements used to populate the database.</p> </p>
                         </div><!-- /.box-body -->
                     </div>
                     <div class="box box-primary">
@@ -213,7 +207,7 @@
                                 <tbody>
                                     <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/raw_dump.html">raw_dump</a></td>
-                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">4</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">2</td>
                                         <td class="detail" align="right">9493787</td>
@@ -221,13 +215,31 @@
                                         <td class="comment detail" style="display: table-cell;"><p>This table holds the full wiktextract dump, in raw format. Each entry is a line containing the full JSON object. It is initially populated by a script parsing the dump file.</p></td>
                                     </tr>
                                     <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/raw_links.html">raw_links</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">4</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">View</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Holds all tentative links from an entry (with ID as <code>line_no</code>) to candidate other entries (defined by <code>word</code> and <code>lang_code</code>).</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
                                         <td class="detail"><a href="tables/dump.html">dump</a></td>
                                         <td class="detail" align="right">0</td>
-                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">1</td>
                                         <td class="detail" align="right">12</td>
                                         <td class="detail" align="right">0</td>
                                         <td class="detail" align="right">View</td>
-                                        <td class="comment detail" style="display: table-cell;"><p>Information extracted by parsing the JSON content.</p></td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Derived from <code>raw_dump</code> by parsing the relevant JSON paths.</p></td>
+                                    </tr>
+                                    <tr class="tbl even" valign="top">
+                                        <td class="detail"><a href="tables/templates.html">templates</a></td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">1</td>
+                                        <td class="detail" align="right">3</td>
+                                        <td class="detail" align="right">0</td>
+                                        <td class="detail" align="right">View</td>
+                                        <td class="comment detail" style="display: table-cell;"><p>Each row is an element of the <code>etymology_template</code> node.</p></td>
                                     </tr>
                             </table>
                         </div>

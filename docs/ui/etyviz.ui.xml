@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="etyviz" schema="ui" type="PostgreSQL - 16.2 (Ubuntu 16.2-1.pgdg22.04+1)">
+   <tables>
+      <table name="link" numRows="0" remarks="" schema="ui" type="VIEW" viewSql=" SELECT source_node.word AS source_word,&#10;    source_node.lang_code AS source_lang,&#10;    SUBSTRING(source_node.gloss FROM 1 FOR 50) AS source_gloss,&#10;    edge.link_type,&#10;    target_node.word AS target_word,&#10;    target_node.lang_code AS target_lang,&#10;    SUBSTRING(target_node.gloss FROM 1 FOR 50) AS target_gloss&#10;   FROM ((core.edge&#10;     JOIN core.node source_node ON ((source_node.node_id = edge.source_id)))&#10;     JOIN core.node target_node ON ((target_node.node_id = edge.target_id)));">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="source_word" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="source_lang" nullable="true" remarks="" size="16" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="source_gloss" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="link_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="target_word" nullable="true" remarks="" size="256" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="target_lang" nullable="true" remarks="" size="16" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="target_gloss" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+      </table>
+   </tables>
+</database>
