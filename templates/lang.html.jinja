@@ -1,0 +1,11 @@
+{% extends "base.html.jinja" %}
+{% set title = lang.name + ' language' %}
+
+{% block body %}
+<h2>{{ lang.name }} (<span class="font-monospace">{{ lang.code }}</span>)</h2>
+<label for="qword">Word</label>
+<input type="text" class="form-control mb-3 smooth" id="qword" placeholder="Start typing a word to filter..."
+  hx-get="/api/words?qlang_code={{lang.code}}" hx-target="#words" value=""
+  hx-trigger="input changed delay:500ms, search, load" name="qword">
+<div id="words"></div>
+{% endblock body %}

@@ -1,0 +1,16 @@
+{% extends "base.html.jinja" %}
+{% set title = 'Words' %}
+
+{% block body %}
+<div hx-include="this"  >
+  <label for="qlang_code">Language code</label>
+  <input type="text" class="form-control mb-3 smooth" id="qlang_code" placeholder="Enter a language to filter..."
+    hx-trigger="input changed delay:500ms, search, load" hx-target="#words" hx-get="/api/words" value="" name="qlang_code">
+  <label for="qword">Word</label>
+  <input type="text" class="form-control mb-3 smooth" id="qword" placeholder="Start typing a word to filter..."
+   hx-trigger="input changed delay:500ms, search, load" hx-target="#words" hx-get="/api/words" value="" name="qword">
+</div>
+
+<div id="words">
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% import 'tables.html.jinja' as tables%}
+
+
+
+{% if data %}
+<table class="table table-hover table-bordered table-sm caption-top">
+  <caption>Languages matching your query.</caption>
+  <thead>
+  <th>Name</th>
+  <th>Code</th>
+  <th>Entries</th>
+  <th>Ranking</th>
+  <th>Percentage</th>
+  </thead>
+  <tbody>
+    {% for lang in data %}
+    <tr>
+      <td><a href="/lang/{{ lang.lang_code }}">{{ lang.lang_name }}</a></td>
+      <td class="font-monospace">{{ lang.lang_code }}</td>
+      <td class="text-end">{{ lang.num_entries | int }}</td>
+      <td class="text-end">{{ lang.ranking }}</td>
+      <td class="text-end">{{ "{:.2f}".format(lang.percentage) }} %</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<span class="fs-1">
+  <i class="bi bi-database-slash"></i> No languages found
+</span>
+{% endif %}

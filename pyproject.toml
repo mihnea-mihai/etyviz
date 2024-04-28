@@ -24,9 +24,3 @@ Homepage = "https://etyviz.mihai.lu" # tbd
 
 [tool.pylint.format]
 max-line-length = "88"
-
-
-# [tool.pytest.ini_options]
-# pythonpath = [
-#   "src"
-# ]

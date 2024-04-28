@@ -33,3 +33,24 @@ SELECT
 FROM node_counts
 JOIN edge_counts ON node_counts.lang_code = edge_counts.target_lang
 LIMIT 100;
+
+
+WITH all_letters AS (
+	SELECT
+		lang_code,
+		string_to_table(lower(word), NULL) AS letter,
+		entry_count
+	FROM words
+	JOIN languages USING (lang_code)
+),
+letters AS (
+	SELECT *, letter IS NFD NORMALIZED AS special
+	FROM all_letters
+)
+SELECT
+	lang_code, letter, count(*), count(*) / entry_count
+FROM letters
+WHERE special = false
+GROUP BY lang_code, letter
+ORDER BY count(*) / entry_count DESC
+LIMIT 100;

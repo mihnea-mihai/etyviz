@@ -1,0 +1,31 @@
+{% if data %}
+<table class="table table-hover table-bordered table-sm caption-top">
+  <caption>Words matching your query.</caption>
+  <thead>
+    <th>Word</th>
+    <th>Language code</th>
+    <th>POS</th>
+    <th>Gloss</th>
+    <th>Relevancy</th>
+  </thead>
+  <tbody>
+    {% for word in data %}
+    <tr>
+      <td><a href="/word/{{word.word_id}}">{{ word.word }}</a>
+        {%- if word.etym_no != None -%}
+        <sup>{{word.etym_no}}</sup>
+        {% endif %}
+      </td>
+      <td class="font-monospace">{{ word.lang.code }}</td>
+      <td class="">{{ word.pos }}</td>
+      <td class="">{{ word.gloss }}</td>
+      <td class="text-end">{{ word.relevancy }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<span class="fs-1">
+  <i class="bi bi-database-slash"></i> No words found
+</span>
+{% endif %}

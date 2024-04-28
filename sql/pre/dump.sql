@@ -13,7 +13,8 @@ CREATE OR REPLACE VIEW pre.dump AS
         jdoc #>> ARRAY['senses', '0', 'form_of', '0', 'word'] AS form_of,
         jdoc ->> 'title' AS title,
         jdoc ->> 'redirect' AS redirect,
-        jdoc -> 'etymology_templates' AS etymology_templates
+        jdoc -> 'etymology_templates' AS etymology_templates,
+        char_length(jdoc ->> 'senses') AS relevancy
     FROM pre.raw_dump;
 
 COMMENT ON VIEW pre.dump IS

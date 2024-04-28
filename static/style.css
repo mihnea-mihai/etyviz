@@ -1,89 +1,58 @@
 :root {
-    font-size: xx-large;
     --text-color: #F5F5F5;
-    --bg-color: #0F0F0F;
-    --sec-bg-color: #1A1A1A;
-    --accent-color: #0081C8;
-    --success-color: #00A651;
-    --error-color: #EE334E;
-    --warning-color: #FCB131;
+    --bg-color: #0D0D0D;
 }
 
 html {
     background-color: var(--bg-color);
     color: var(--text-color);
-}
-
-body {
-    margin: auto;
-    max-width: 769px;
     font-family: sans-serif;
 }
 
-form {
-    text-align: center;
-}
-
-.text-input > label,
-.text-input > input {
-    display: block;
-    margin: auto;
-    padding: 1vh 1vw;
-    max-width: 90%;
-}
-
-.text-input {
-    padding: 2vh 0;
-}
-
-input {
+/* body {
     background-color: #1A1A1A;
-    border: 1px solid var(--text-color);
-    color: var(--accent-color);
-    font-size: 1rem;
-    max-width: 95%;
+} */
+
+header img {
+    height: 4rem;
 }
 
-input[type=submit] {
-    font-size: 1rem;
-    margin: 5vh 0;
-    color: var(--text-color);
-    padding: 2vh 2vw;
-}
-input[type=submit]:hover {
-    /* background-color: var(--accent-color); */
-    opacity: 69%;
-    cursor: pointer;
+header span {
+    font-size: 2rem;
+    vertical-align: middle;
 }
 
-header {
-    text-align: center;
+body {
+    max-width: 768px;
+    margin: auto;
 }
 
-#banner {
-    width: 10rem;
+.word,
+.word + sup {
+    font-size: 2em;
 }
 
-:focus-visible {
-    outline: unset;
+a {
+    color: #00BFFF;
+    text-decoration: none;
 }
 
-input.valid {
-    border: var(--success-color) solid 3px;
-    color: var(--success-color);
-}
-
-input.invalid {
-    border: var(--error-color) solid 3px;
-    color: var(--error-color);
-}
-
-input.pending {
-    border: var(--warning-color) solid 3px;
-    color: var(--warning-color);
+header nav {
+    display: flex;
+    column-gap: 1vw;
+    font-size: x-large;
+    align-items: center;
 }
 
 footer {
-    font-size: small;
-    text-align: center;
+    display: flex;
+    column-gap: 1vw;
+    align-items: center;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+pre {
+    font-size: larger;
+    margin: unset;
 }

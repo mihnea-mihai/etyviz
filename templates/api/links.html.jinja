@@ -1,0 +1,40 @@
+{% if data %}
+<table class="table table-hover table-bordered table-sm caption-top">
+  <caption>{{type|capitalize}} links of given word.</caption>
+  <thead>
+    {% if type == 'source' %}
+    <th>Link type</th>
+    <th>Target word</th>
+    <th>Target language</th>
+    <th>Target translation</th>
+    {% else %}
+    <th>Source word</th>
+    <th>Source language</th>
+    <th>Source translation</th>
+    <th>Link type</th>
+    {% endif %}
+  </thead>
+  <tbody>
+    {% for link in data %}
+    <tr>
+      {% if type == 'source' %}
+      <td class="font-monospace">{{ link.type }}</td>
+      <td><a href="/word/{{link.target.word_id}}">{{ link.target.word }}</a></td>
+      <td>{{ link.target.lang.name }}</td>
+      <td>{{ link.target.gloss }}</td>
+      {% else %}
+      <td><a href="/word/{{link.source.word_id}}">{{ link.source.word }}</a></td>
+      <td>{{ link.source.lang.name }}</td>
+      <td>{{ link.source.gloss }}</td>
+      <td class="font-monospace">{{ link.type }}</td>
+      {% endif %}
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<span class="fs-1">
+  <i class="bi bi-database-slash"></i> No links found
+</span>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends "base.html.jinja" %}
+
+{% set title = word.word %}
+
+{% block body %}
+<h2 class="word">{{word.word}}
+  {%- if word.etym_no != None -%}
+  <sup>{{word.etym_no}}</sup>
+  {% endif %}
+  {% if word.translit != None %}
+  <em>({{word.translit}})</em>
+  {% endif %}
+</h2>
+
+<p>
+  <span>{{word.lang.name}} </span>
+  <span>{{word.pos}}</span>
+</p>
+
+<p><i>{{word.gloss}}</i></p>
+<div hx-trigger="load" hx-target="#source-links" hx-get="/api/links?source_id={{word.word_id}}"></div>
+<div id="source-links"></div>
+
+<div hx-trigger="load" hx-target="#target-links" hx-get="/api/links?target_id={{word.word_id}}"></div>
+<div id="target-links"></div>
+
+
+{% endblock %}

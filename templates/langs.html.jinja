@@ -1,0 +1,15 @@
+{% extends "base.html.jinja" %}
+{% set title = 'Languages' %}
+
+{% block body %}
+<label for="qlang">Language</label>
+<input type="text" class="form-control" name="qlang" placeholder="Start typing a language to filter..."
+  hx-get="/api/langs" hx-target="#langs" hx-trigger="input changed delay:500ms, search, load"
+  hx-indicator=".spinner-border">
+
+<div class="spinner-border htmx-indicator" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div>
+<div id="langs"></div>
+
+{% endblock %}

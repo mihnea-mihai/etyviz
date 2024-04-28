@@ -1,7 +1,11 @@
 import logging
 import psycopg
 
+import psycopg.rows
+
 import etyviz.logs
+
+from typing import LiteralString
 
 
 def execute_file(path: str, params=None):
@@ -18,6 +22,14 @@ def execute_file(path: str, params=None):
             with conn.cursor() as cur:
                 cur.execute(file.read(), params)
                 return cur.fetchall()
+
+
+def execute(query: LiteralString, params=None):
+    # pylint: disable=not-context-manager
+    with psycopg.connect("dbname=etyviz", row_factory=psycopg.rows.dict_row) as conn:
+        with conn.cursor() as cur:
+            cur.execute(query, params)
+            return cur.fetchall()
 
 
 def file_to_db() -> None:
@@ -39,13 +51,5 @@ def file_to_db() -> None:
                     i += 1
 
 
-def wiki_to_node() -> None:
-    """Populate the `node` table from the JSON information
-    in the `wiki` table.
-    """
-    pass
-
-
 if __name__ == "__main__":
-    file_to_db()
-    # execute_file("sql/lang.sql")
+    pass

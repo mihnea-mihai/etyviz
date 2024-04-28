@@ -1,0 +1,25 @@
+<table class="table table-hover table-bordered table-sm caption-top">
+  <caption>Source links of given word.</caption>
+  <thead>
+    <th>Link type</th>
+    <th>Word</th>
+    <th>Language code</th>
+    <th>Translation</th>
+  </thead>
+  <tbody>
+    {% if data %}
+    {% for link in data %}
+    <tr>
+      <td class="font-monospace">{{ link.link_type }}</td>
+      <td>{{ link.word }}</td>
+      <td>{{ link.lang_code }}</td>
+      <td>{{ link.gloss }}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <span class="fs-1">
+      <i class="bi bi-database-slash"></i> No links found
+    </span>
+    {% endif %}
+  </tbody>
+</table>

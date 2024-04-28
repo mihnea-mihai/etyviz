@@ -1,0 +1,7 @@
+{% macro thead(cols) %}
+<thead>
+  {% for col in cols %}
+  <th>{{ col }}</th>
+  {% endfor %}
+</thead>
+{% endmacro %}

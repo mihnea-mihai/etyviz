@@ -1,32 +1,7 @@
 {% extends "base.html.jinja" %}
+{% set title = 'etyviz' %}
 
-{% macro textInput(id, label, hidden=False) %}
-<div class="text-input {{id}}" {% if hidden %} hidden {% endif %}>
-  <label for="{{id}}">{{label}}</label>
-  <input type="search" name="{{id}}" id="{{id}}" autocomplete="off" autocorrect="off" autocapitalize="none"
-    class="pending" list="{{id}}-list" {% if hidden %} disabled {% else %} required {% endif %} />
-  <datalist class="dropdown" id="{{id}}-list"></datalist>
-</div>
-{% endmacro %}
 
-{% block title %}etyviz {{version}}{% endblock %}
-
-{% block social_description %}
-Visualize the world's etymologies.
-{% endblock social_description %}
-
-{% block main %}
-<form action="/graph" method="GET" target="_blank">
-  {{ textInput('lang', 'Language') }}
-  {{ textInput('word', 'Word') }}
-  <div>
-    <!-- <label for="graph">Graph type</label> -->
-    <input type="radio" id="history" name="graph" value="history" checked autocomplete="off" />
-    <label for="history">Etymology</label>
-    <input type="radio" id="relationships" name="graph" value="relationships" autocomplete="off" />
-    <label for="relationships">Relationships</label>
-  </div>
-  {{ textInput('filter-lang', 'Filter language', True) }}
-  <input id="generate" type="submit" value="Generate" class="">
-</form>
-{% endblock main %}
+{% block body %}
+  <p>Welcome to <b>etyviz</b>.</p>
+{% endblock  %}

@@ -7,13 +7,13 @@ from typing import Callable
 
 from time import perf_counter
 
-logging.basicConfig(
-    filename="etyviz.log",
-    encoding="utf-8",
-    level=logging.DEBUG,
-    format="%(levelname)s %(asctime)s %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
+# logging.basicConfig(
+#     filename="etyviz.log",
+#     encoding="utf-8",
+#     level=logging.DEBUG,
+#     format="%(levelname)s %(asctime)s %(message)s",
+#     datefmt="%Y-%m-%d %H:%M:%S",
+# )
 
 
 def log_gen(f: Callable):

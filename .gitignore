@@ -175,4 +175,4 @@ schemaspy/*.jar
 
 data/wiktextract.jsonl
 
-!docs/*/bower/admin-lte/dist
+
