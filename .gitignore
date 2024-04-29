@@ -169,10 +169,8 @@ graphs/showcase/*.gv
 storage/*
 !storage/test/
 
-# !schemaspy/.gitkeep
-# schemaspy/*
-schemaspy/*.jar
-
 data/wiktextract.jsonl
 
 
+
+etyviz-db-docs/
