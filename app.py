@@ -1,5 +1,5 @@
 # save this as app.py
-import pydot
+# import pydot
 from flask import Flask, request, send_file, render_template
 from etyviz import db
 from etyviz.langs import Language
@@ -62,6 +62,11 @@ def api_links():
 @app.route("/")
 def home():
     return render_template("home.html.jinja", version="1.1.0")
+
+
+@app.route("/hello_world")
+def hello_world():
+    return "Hello World!"
 
 
 @app.errorhandler(404)

@@ -1,16 +1,11 @@
-black==23.7.0
-blinker==1.6.2
-click==8.1.5
-Flask==2.3.2
-itsdangerous==2.1.2
-Jinja2==3.1.2
-MarkupSafe==2.1.3
-mypy-extensions==1.0.0
-packaging==23.1
-pathspec==0.11.1
-platformdirs==3.9.1
-pydot==1.4.2
-pyparsing==3.1.0
-tomli==2.0.1
-typing_extensions==4.6.3
-Werkzeug==2.3.6
+blinker==1.8.1
+click==8.1.7
+-e git+https://github.com/mihnea-mihai/etyviz.git@d74e940ccda17e8b4eaab8b0852901bfb4fcee72#egg=etyviz
+Flask==3.0.3
+itsdangerous==2.2.0
+Jinja2==3.1.3
+MarkupSafe==2.1.5
+psycopg==3.1.18
+psycopg-binary==3.1.18
+typing_extensions==4.11.0
+Werkzeug==3.0.2
